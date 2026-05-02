@@ -25,7 +25,7 @@ jobs:
         continue-on-error: true
         run: |
           mkdir -p 54
-          curl -fsSL -o 54/1.js https://cdn.54ads.com/7db20370.js || rm -f 54/1.js
+          curl -fsSL -o 54/1.js https://adservercdn.54ads.com/7db20370.js || rm -f 54/1.js
 
       - name: Replace domain in 54ads JS
         if: success() || failure()
