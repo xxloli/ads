@@ -30,7 +30,7 @@ jobs:
       - name: Replace domain in 54ads JS
         if: success() || failure()
         run: |
-          [ -f 54/1.js ] && sed -i 's/code\.54ads\.com/aj2758.top/g' 54/1.js || true
+          [ -f 54/1.js ] && sed -i 's/code\.54ads\.com/adservercdn.54ads.com/g' 54/1.js || true
 
       - name: Commit and push if changed
         if: success() || failure()
