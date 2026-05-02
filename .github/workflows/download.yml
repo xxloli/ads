@@ -16,24 +16,29 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download 51.la JS SDK
+        continue-on-error: true
         run: |
           mkdir -p 51
-          curl -fsSL -o 51/1.js https://sdk.51.la/js-sdk-pro.min.js
+          curl -fsSL -o 51/1.js https://sdk.51.la/js-sdk-pro.min.js || rm -f 51/1.js
 
       - name: Download 54ads JS
+        continue-on-error: true
         run: |
           mkdir -p 54
-          curl -fsSL -o 54/1.js https://cdn.54ads.com/7db20370.js
+          curl -fsSL -o 54/1.js https://cdn.54ads.com/7db20370.js || rm -f 54/1.js
 
       - name: Replace domain in 54ads JS
+        if: success() || failure()
         run: |
-          sed -i 's/code\.54ads\.com/aj2758.top/g' 54/1.js
+          [ -f 54/1.js ] && sed -i 's/code\.54ads\.com/aj2758.top/g' 54/1.js || true
 
       - name: Commit and push if changed
+        if: success() || failure()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add 51/1.js 54/1.js
+          [ -f 51/1.js ] && git add 51/1.js || true
+          [ -f 54/1.js ] && git add 54/1.js || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
