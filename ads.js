@@ -1,7 +1,13 @@
+var today = new Date();
+var y = today.getFullYear();
+var m = (today.getMonth() + 1).toString().padStart(2, '0');
+var d = today.getDate().toString().padStart(2, '0');
+var dateParam = y + m + d;
+
 (function() {
     var adScript = document.createElement("script");
     adScript.async = true;
-    adScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/54/1.js"; 
+    adScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/54/1.js?" + dateParam; 
     var adContainer = document.createElement("div");
     adContainer.style.display = "none";
     adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
@@ -23,7 +29,7 @@
     "use strict";
     !function(t) {
         var s = window, e = document, i = p;
-        var c = "https://cdn.jsdmirror.com/gh/xxloli/ads/51/1.js";
+        var c = "https://cdn.jsdmirror.com/gh/xxloli/ads/51/1.js?" + dateParam;
         function deleteCurrentDomainLACookies() {
             var cookies = document.cookie.split("; ");
             for (var j = 0; j < cookies.length; j++) {
