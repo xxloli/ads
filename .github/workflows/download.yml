@@ -31,8 +31,8 @@ jobs:
         if: success() || failure()
         run: |
           if [ -f 54/1.js ]; then
-            sed -i 's/code\.54ads\.com/adservercdn.54ads.com/g' 54/1.js
-            sed -i 's/d\.ff\?(/d.content = d.content.replace(/code\\.54ads\\.com/g, '"'"'adservercdn.54ads.com'"'"');d.ff?(/g' 54/1.js
+            sed -i 's|code\.54ads\.com|adservercdn.54ads.com|g' 54/1.js
+            sed -i 's|d\.ff\?(|d.content = d.content.replace(/code\\.54ads\\.com/g, "adservercdn.54ads.com");d.ff?(|g' 54/1.js
           fi
 
       - name: Commit and push if changed
