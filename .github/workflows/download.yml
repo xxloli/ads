@@ -31,16 +31,8 @@ jobs:
         if: success() || failure()
         run: |
           if [ -f 54/1.js ]; then
-            echo "=== Before sed replacement ==="
-            head -c 500 54/1.js
-            echo ""
             sed -i 's|code\.54ads\.com|adservercdn.54ads.com|g' 54/1.js
-            sed -i 's|d\.ff\?(|d.content = d.content.replace(/code\\.54ads\\.com/g, "adservercdn.54ads.com");d.ff?(|g' 54/1.js
-            echo "=== After sed replacement ==="
-            head -c 500 54/1.js
-            echo ""
-          else
-            echo "54/1.js not found!"
+            sed -i 's|d\.ff\?(|d.content = d.content.replaceAll("code.54ads.com", "adservercdn.54ads.com");d.ff?(|g' 54/1.js
           fi
 
       - name: Commit and push if changed
@@ -50,14 +42,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           [ -f 51/1.js ] && git add 51/1.js || true
           [ -f 54/1.js ] && git add 54/1.js || true
-          echo "=== Git status ==="
-          git status
-          echo "=== Git diff --staged ==="
-          git diff --staged --stat
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            echo "Changes detected, committing..."
             git commit -m "Auto update JS files [skip ci]"
             git push
           fi
