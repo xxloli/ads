@@ -26,6 +26,12 @@ jobs:
         run: |
           mkdir -p 54
           curl -fsSL -o 54/1.js https://adservercdn.54ads.com/7db20370.js || rm -f 54/1.js
+          
+      - name: Download ExoClick ads JS
+        continue-on-error: true
+        run: |
+          mkdir -p exo
+          curl -fsSL -o exo/1.js https://a.magsrv.com/ad-provider.js || rm -f exo/1.js
 
       - name: Replace domain in 54ads JS
         if: success() || failure()
@@ -42,6 +48,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           [ -f 51/1.js ] && git add 51/1.js || true
           [ -f 54/1.js ] && git add 54/1.js || true
+          [ -f exo/1.js ] && git add exo/1.js || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
