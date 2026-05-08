@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         insertMultipleAds();
         var magScript = document.createElement("script");
         magScript.async = true;
-        magScript.src = "https://a.magsrv.com/ad-provider.js";
+        magScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/exo/1.js?" + dateParam; 
         magScript.onload = function () {
             try {
                 (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
