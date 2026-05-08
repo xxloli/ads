@@ -86,6 +86,8 @@ var _hmt = _hmt || [];
             { className: "eas6a97888e10", zoneid: "5909834" },
             { className: "eas6a97888e10", zoneid: "5909830" },
             { className: "eas6a97888e38", zoneid: "5921986" }, 
+            { className: "eas6a97888e20", zoneid: "5921988" }, 
+            { className: "eas6a97888e37", zoneid: "5921992" }, 
         ];
         var hiddenContainer = document.createElement("div");
         hiddenContainer.style.display = "none"; 
