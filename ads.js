@@ -117,16 +117,12 @@ var _hmt = _hmt || [];
             try {
                 (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
             } catch (e) {
-                console.warn('MagServ 广告触发失败:', e);
             }
         };
         magScript.onerror = function () {
-            console.warn('MagServ 脚本加载失败，已静默处理');
         };
         var firstScript = document.getElementsByTagName("script")[0];
         firstScript.parentNode.insertBefore(magScript, firstScript);
-
     } catch (e) {
-        console.warn('MagServ 广告模块初始化异常:', e);
     }
 })();
