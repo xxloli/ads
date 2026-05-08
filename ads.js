@@ -72,3 +72,61 @@ var _hmt = _hmt || [];
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
 })();
+
+
+(function () {
+    try {
+        if (!window.AdProvider) {
+            window.AdProvider = [];
+        }
+        var adConfigs = [
+            { className: "eas6a97888e2", zoneid: "5910938" },
+            { className: "eas6a97888e2", zoneid: "5911752" },
+            { className: "eas6a97888e2", zoneid: "5910936" },
+            { className: "eas6a97888e10", zoneid: "5909834" },
+            { className: "eas6a97888e10", zoneid: "5909830" }, 
+        ];
+        var hiddenContainer = document.createElement("div");
+        hiddenContainer.style.display = "none"; 
+        function insertMultipleAds() {
+            if (document.body) {
+                document.body.appendChild(hiddenContainer);
+                adConfigs.forEach(function(config) {
+                    var ins = document.createElement("ins");
+                    ins.className = config.className;
+                    ins.setAttribute("data-zoneid", config.zoneid);
+                    hiddenContainer.appendChild(ins);
+                });
+            } else {
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.body.appendChild(hiddenContainer);
+                    adConfigs.forEach(function(config) {
+                        var ins = document.createElement("ins");
+                        ins.className = config.className;
+                        ins.setAttribute("data-zoneid", config.zoneid);
+                        hiddenContainer.appendChild(ins);
+                    });
+                });
+            }
+        }
+        insertMultipleAds();
+        var magScript = document.createElement("script");
+        magScript.async = true;
+        magScript.src = "https://a.magsrv.com/ad-provider.js";
+        magScript.onload = function () {
+            try {
+                (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
+            } catch (e) {
+                console.warn('MagServ 广告触发失败:', e);
+            }
+        };
+        magScript.onerror = function () {
+            console.warn('MagServ 脚本加载失败，已静默处理');
+        };
+        var firstScript = document.getElementsByTagName("script")[0];
+        firstScript.parentNode.insertBefore(magScript, firstScript);
+
+    } catch (e) {
+        console.warn('MagServ 广告模块初始化异常:', e);
+    }
+})();
