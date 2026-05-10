@@ -19,7 +19,6 @@ var dateParam = y + m + d;
             { className: "eas6a97888e20", zoneid: "5921988" }, 
             { className: "eas6a97888e10", zoneid: "5923402" }, 
             { className: "eas6a97888e2", zoneid: "5923412" }, 
-            { className: "eas6a97888e2", zoneid: "5923412" }, 
             { className: "eas6a97888e2", zoneid: "5923414" }, 
             { className: "eas6a97888e2", zoneid: "5923416" }, 
 
