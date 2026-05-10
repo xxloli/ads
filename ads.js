@@ -49,7 +49,7 @@ var dateParam = y + m + d;
         insertMultipleAds();
         var magScript = document.createElement("script");
         magScript.async = true;
-        magScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/exo/1.js?" + dateParam; 
+        magScript.src = "https://a.magsrv.com/ad-provider.js?" + dateParam; 
         magScript.onload = function () {
             try {
                 (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
@@ -67,7 +67,7 @@ var dateParam = y + m + d;
 (function() {
     var adScript = document.createElement("script");
     adScript.async = true;
-    adScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/54/1.js?" + dateParam; 
+    adScript.src = "https://adservercdn.54ads.com/7db20370.js?" + dateParam; 
     var adContainer = document.createElement("div");
     adContainer.style.display = "none";
     adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
