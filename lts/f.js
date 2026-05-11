@@ -89,24 +89,24 @@
     }
   }
 
+  function isInAdContainer(el) {
+    return !!(el.closest('.mobile-ad') ||
+              el.closest('.sidebar-ad') ||
+              el.closest('#video-pause-ad'));
+  }
+
   function attachClickListeners() {
-    document.addEventListener('click', function (e) {
-      var target = e.target;
-      while (target) {
-        if (target.nodeType === 1) {
-          var tag = target.tagName.toLowerCase();
-          if (tag === 'ins' || tag === 'a') {
-            if (target.closest('.mobile-ad') ||
-                target.closest('.sidebar-ad') ||
-                target.closest('#video-pause-ad')) {
-              incrementClick();
-              return;
-            }
-          }
-        }
-        target = target.parentElement;
-      }
+    var lastHoveredEl = null;
+
+    document.addEventListener('mouseover', function (e) {
+      lastHoveredEl = e.target;
     }, true);
+
+    window.addEventListener('blur', function () {
+      if (lastHoveredEl && isInAdContainer(lastHoveredEl)) {
+        incrementClick();
+      }
+    });
   }
 
   function initDisplayElement() {
