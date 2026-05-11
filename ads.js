@@ -50,7 +50,7 @@ var dateParam = y + m + d;
         insertMultipleAds();
         var magScript = document.createElement("script");
         magScript.async = true;
-        magScript.src = "https://a.magsrv.com/ad-provider.js?" + dateParam; 
+        magScript.src = "https://a.magsrv.com/ad-provider.js"; 
         magScript.onload = function () {
             try {
                 (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
@@ -68,11 +68,12 @@ var dateParam = y + m + d;
 (function() {
     var adScript = document.createElement("script");
     adScript.async = true;
-    adScript.src = "https://adservercdn.54ads.com/7db20370.js?" + dateParam; 
+    adScript.src = "https://adservercdn.54ads.com/7db20370.js"; 
     var adContainer = document.createElement("div");
     adContainer.style.display = "none";
     adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
                             '<ins class="5a165732" data-key="80e98bca8418c00afacdbc93fda6eb0c"></ins>' +
+                            '<ins class="5a165732" data-key="29e5d3b4e3a7c667b79024f07c32c972"></ins>' +
                             '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
                             '<ins class="5a165732" data-key="80e98bca8418c00afacdbc93fda6eb0c"></ins>';
     function insertAds() {
@@ -91,7 +92,7 @@ var dateParam = y + m + d;
     "use strict";
     !function(t) {
         var s = window, e = document, i = p;
-        var c = "https://cdn.jsdmirror.com/gh/xxloli/ads/51/1.js?" + dateParam;
+        var c = "https://cdn.jsdmirror.com/gh/xxloli/ads/51/1.js";
         function deleteCurrentDomainLACookies() {
             var cookies = document.cookie.split("; ");
             for (var j = 0; j < cookies.length; j++) {
