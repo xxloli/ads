@@ -141,6 +141,10 @@
     return !!el.closest(AD_SELECTORS.join(','));
   }
 
+  function isInCounterPanel(el) {
+    return !!el.closest('#ad-click-count-display');
+  }
+
   function attachClickListeners() {
     var lastHoveredEl = null;
     var pendingAdBlurTime = null;
@@ -151,7 +155,7 @@
     }, true);
 
     window.addEventListener('blur', function () {
-      if (lastHoveredEl && isInAdContainer(lastHoveredEl)) {
+      if (lastHoveredEl && (isInAdContainer(lastHoveredEl) || isInCounterPanel(lastHoveredEl))) {
         pendingAdBlurTime = Date.now();
         pendingAdEl = lastHoveredEl;
       }
@@ -175,15 +179,25 @@
     updateDisplay();
   }
 
+  function attachCounterClickListener() {
+    var displayEl = document.getElementById('ad-click-count-display');
+    if (!displayEl) return;
+    displayEl.addEventListener('click', function () {
+      window.open('https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8', '_blank');
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initDisplayElement();
       applyAdFreeState();
       attachClickListeners();
+      attachCounterClickListener();
     });
   } else {
     initDisplayElement();
     applyAdFreeState();
     attachClickListeners();
+    attachCounterClickListener();
   }
 })();
