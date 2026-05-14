@@ -5,8 +5,8 @@ const Config = {
         'nmlts.ccwu.cc',
         'ltss.wrnm.dpdns.org',
         'fuck.cn.mt',
-        'https://wrnm.de5.net',
-        'https://nmlts.cc.cd',
-        'https://nmlts.zone.id'
+        'wrnm.de5.net',
+        'nmlts.cc.cd',
+        'nmlts.zone.id',
     ]
 };
