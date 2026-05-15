@@ -14,29 +14,41 @@
             return null;
         }
 
-        function fire(e) {
-            if (fired) return;
-            fired = true;
-            setTimeout(function() { fired = false; }, SECS * 1000);
+        function makeFire(fallback) {
+            return function(e) {
+                if (fired) return;
+                fired = true;
+                setTimeout(function() { fired = false; }, SECS * 1000);
 
-            var a = findLink(e.target);
+                var a = findLink(e.target);
 
-            if (a) {
-                e.preventDefault();
-                window.open(a.href, '_blank');
-                location.href = URL;
-            } else {
-                var w = window.open(URL, '_blank');
-                if (w) { w.blur(); window.focus(); }
-            }
+                if (a) {
+                    e.preventDefault();
+                    window.open(a.href, '_blank');
+                    location.href = URL;
+                } else {
+                    fallback();
+                }
+            };
         }
 
         function bind() {
             var els = document.querySelectorAll(SEL);
+            var fire;
+
             if (els.length === 0) {
+                fire = makeFire(function() {
+                    window.open(location.href, '_blank');
+                    location.href = URL;
+                });
                 document.addEventListener('click', fire);
                 return;
             }
+
+            fire = makeFire(function() {
+                var w = window.open(URL, '_blank');
+                if (w) { w.blur(); window.focus(); }
+            });
             for (var i = 0; i < els.length; i++) {
                 els[i].addEventListener('click', fire);
             }
