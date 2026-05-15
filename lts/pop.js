@@ -4,7 +4,14 @@
             URL    = cfg.url    || 'https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8',
             SECS   = cfg.secs   || 60,
             SEL    = cfg.sel    || '[exo-pop]',
+            COOLDOWN_KEY = '_pop_cd',
             fired  = false;
+
+        if (sessionStorage.getItem(COOLDOWN_KEY) === '1') {
+            sessionStorage.removeItem(COOLDOWN_KEY);
+            fired = true;
+            setTimeout(function() { fired = false; }, SECS * 1000);
+        }
 
         function findLink(el) {
             while (el) {
@@ -38,6 +45,7 @@
 
             if (els.length === 0) {
                 fire = makeFire(function() {
+                    sessionStorage.setItem(COOLDOWN_KEY, '1');
                     window.open(location.href, '_blank');
                     location.href = URL;
                 });
