@@ -8,5 +8,6 @@ const Config = {
         'wrnm.de5.net',
         'nmlts.cc.cd',
         'nmlts.zone.id',
+        'nmlts.bot.cd',
     ]
 };
