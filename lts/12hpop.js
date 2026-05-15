@@ -1,7 +1,7 @@
 (function() {
     function run() {
         var cfg = window.popConfig || {},
-            URL    = cfg.url    || 'https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8',
+            URL    = cfg.url    || 'https://s.pemsrv.com/v1/link.php?cat=&idzone=5924928&type=8',
             SECS   = cfg.secs   || 60,
             SEL    = cfg.sel    || '[exo-pop]',
             fired  = false;
