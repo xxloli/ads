@@ -1,3 +1,4 @@
+//1.0
 (function() {
     if (window._popLoaded) return;
     window._popLoaded = true;
@@ -45,10 +46,14 @@
         }
 
         try {
-            if (sessionStorage.getItem(CD_KEY) === '1') {
-                sessionStorage.removeItem(CD_KEY);
-                fired = true;
-                setTimeout(function() { fired = false; }, SECS * 1000);
+            var stored = localStorage.getItem(CD_KEY);
+            if (stored) {
+                var elapsed = Date.now() - parseInt(stored, 10);
+                if (elapsed >= 0 && elapsed < SECS * 1000) {
+                    fired = true;
+                    var remaining = SECS * 1000 - elapsed;
+                    setTimeout(function() { fired = false; }, remaining);
+                }
             }
         } catch (e) {
             storageOk = false;
@@ -56,7 +61,7 @@
 
         function setCd() {
             if (!storageOk) return;
-            try { sessionStorage.setItem(CD_KEY, '1'); } catch (e) {}
+            try { localStorage.setItem(CD_KEY, String(Date.now())); } catch (e) {}
         }
 
         function safeOpen(url) {
