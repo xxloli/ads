@@ -4,8 +4,8 @@
 
   //广告选择器
   var AD_SELECTORS = [
+    '.mobile-ad',
     '.sidebar-ad',
-    '#video-pause-ad',
   ];
   var adObserver = null;
 
