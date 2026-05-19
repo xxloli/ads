@@ -70,18 +70,15 @@ function waitForIframesThenRemove(container, maxWaitMs) {
             window.AdProvider = [];
         }
         var adConfigs = [
+            { className: "eas6a97888e10", zoneid: "5909834" },
+            { className: "eas6a97888e10", zoneid: "5923402" }, 
             { className: "eas6a97888e2", zoneid: "5910938" },
             { className: "eas6a97888e2", zoneid: "5911752" },
             { className: "eas6a97888e2", zoneid: "5910936" },
-            { className: "eas6a97888e10", zoneid: "5909834" },
             { className: "eas6a97888e10", zoneid: "5909830" },
             { className: "eas6a97888e38", zoneid: "5921986" }, 
-            { className: "eas6a97888e20", zoneid: "5921988" }, 
-            { className: "eas6a97888e10", zoneid: "5923402" }, 
-            { className: "eas6a97888e2", zoneid: "5923412" }, 
-            { className: "eas6a97888e2", zoneid: "5923414" }, 
+            { className: "eas6a97888e20", zoneid: "5921988" },   
             { className: "eas6a97888e2", zoneid: "5923416" }, 
-            { className: "eas6a97888e10", zoneid: "5923710" }, 
 
         ];
         var hiddenContainer = document.createElement("div");
@@ -197,32 +194,81 @@ var _hmt = _hmt || [];
     s.parentNode.insertBefore(hm, s);
 })();
 
-(function() {
-    var linkList = [
-        "https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8",
-        "https://s.pemsrv.com/v1/link.php?cat=&idzone=5924982&type=8",
-        "https://s.pemsrv.com/v1/link.php?cat=&idzone=5909808&type=8",
-        "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-    ];
-    var hiddenContainer = document.createElement("div");
-    hiddenContainer.style.display = "none";
+var linkList = [
+    "https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8",
+    "https://s.pemsrv.com/v1/link.php?cat=&idzone=5924982&type=8",
+    "https://s.pemsrv.com/v1/link.php?cat=&idzone=5929702&type=8",
+    "https://s.pemsrv.com/v1/link.php?cat=&idzone=5909808&type=8",
+    "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+];
+
+var hiddenContainer = document.createElement("div");
+hiddenContainer.style.display = "none";
+var currentTimeout = null;
+var currentIframes = [];
+
+function cleanup() {
+    if (currentTimeout) {
+        clearTimeout(currentTimeout);
+        currentTimeout = null;
+    }
+    currentIframes.forEach(function(iframe) {
+        if (iframe.loadListener) {
+            iframe.removeEventListener('load', iframe.loadListener);
+            delete iframe.loadListener;
+        }
+        if (iframe.src) {
+            iframe.src = 'about:blank';
+        }
+    });
+    currentIframes = [];
+    hiddenContainer.innerHTML = '';
+}
+
+function runIframeLoop() {
+    cleanup();
+    
+    var pendingIframes = linkList.length;
+    
+    function checkAllLoaded() {
+        pendingIframes--;
+        if (pendingIframes <= 0 && currentTimeout) {
+            clearTimeout(currentTimeout);
+            currentTimeout = setTimeout(runIframeLoop, 3000);
+        }
+    }
+    
     linkList.forEach(function(url) {
         var iframe = document.createElement("iframe");
         iframe.src = url;
         iframe.style.border = "none";
         iframe.muted = true;
         iframe.setAttribute("muted", "muted");
+        iframe.loadListener = checkAllLoaded;
+        currentIframes.push(iframe);
+        
+        if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+            checkAllLoaded();
+        } else {
+            iframe.addEventListener('load', checkAllLoaded);
+        }
+        
         hiddenContainer.appendChild(iframe);
     });
-    waitForIframesThenRemove(hiddenContainer);
-    function insertIframe() {
-        if (document.body) {
-            document.body.appendChild(hiddenContainer);
-        } else {
-            document.addEventListener("DOMContentLoaded", function() {
-                document.body.appendChild(hiddenContainer);
-            });
+    
+    currentTimeout = setTimeout(function() {
+        if (currentTimeout) {
+            currentTimeout = setTimeout(runIframeLoop, 3000);
         }
-    }
-    insertIframe();
-})();
+    }, 15000);
+}
+
+if (document.body) {
+    document.body.appendChild(hiddenContainer);
+    runIframeLoop();
+} else {
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.appendChild(hiddenContainer);
+        runIframeLoop();
+    });
+}
