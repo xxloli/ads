@@ -4,12 +4,8 @@
 
   //广告选择器
   var AD_SELECTORS = [
-    '.mobile-ad',
     '.sidebar-ad',
     '#video-pause-ad',
-    '.exo-ipp',
-    '.pna-win',
-    '.pna-android'
   ];
   var adObserver = null;
 
