@@ -1,14 +1,12 @@
 (function () {
   var STORAGE_KEY = 'ad_click_data';
-  var MAX_CLICKS = 13;
+  var MAX_CLICKS = 7;
 
   //广告选择器
   var AD_SELECTORS = [
     '.mobile-ad',
     '.sidebar-ad',
   ];
-  var adObserver = null;
-
   function getToday() {
     var d = new Date();
     return d.getFullYear() + '-' +
@@ -74,38 +72,9 @@
     }
   }
 
-  //移除动态广告类
-  function startAdObserver() {
-    if (adObserver) return;
-    adObserver = new MutationObserver(function (mutations) {
-      var dynamicClasses = ['exo-ipp', 'pna-win', 'pna-android'];
-      for (var i = 0; i < mutations.length; i++) {
-        var addedNodes = mutations[i].addedNodes;
-        for (var j = 0; j < addedNodes.length; j++) {
-          var node = addedNodes[j];
-          if (node.nodeType === 1) {
-            for (var d = 0; d < dynamicClasses.length; d++) {
-              if (node.classList && node.classList.contains(dynamicClasses[d])) {
-                node.style.display = 'none';
-              }
-              if (node.querySelectorAll) {
-                var dynamicElements = node.querySelectorAll('.' + dynamicClasses[d]);
-                for (var k = 0; k < dynamicElements.length; k++) {
-                  dynamicElements[k].style.display = 'none';
-                }
-              }
-            }
-          }
-        }
-      }
-    });
-    adObserver.observe(document.documentElement, { childList: true, subtree: true });
-  }
-
   function applyAdFreeState() {
     if (isAdFreeToday()) {
       hideAllAds();
-      startAdObserver();
       updateDisplay();
     }
   }
@@ -113,9 +82,6 @@
   function incrementClick(clickedEl) {
     var current = getClickCount();
     if (current >= MAX_CLICKS) {
-      return;
-    }
-    if (Math.random() < 0.2) {
       return;
     }
     var newCount = current + 1;
@@ -129,7 +95,6 @@
     }
     if (newCount >= MAX_CLICKS) {
       hideAllAds();
-      startAdObserver();
     }
   }
 
