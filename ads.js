@@ -336,7 +336,7 @@ function initAll() {
                         isLoopRunning = false;
                     }
                 }
-            }, 15000);
+            }, 10000);
         }
 
         window.addEventListener('beforeunload', function() {
