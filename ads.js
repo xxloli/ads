@@ -148,6 +148,8 @@ function initAll() {
             "https://s.pemsrv.com/v1/link.php?cat=&idzone=5931062&type=8",
             "https://s.pemsrv.com/v1/link.php?cat=&idzone=5909808&type=8",
             "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+            "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+            "https://cdn77.aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
         ];
 
         var peLinkList = [
@@ -156,6 +158,9 @@ function initAll() {
             "https://s.pemsrv.com/v1/link.php?cat=&idzone=5924982&type=8",
             "https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8",
             "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+            "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+            "https://cdn77.aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+            
         ];
 
         function isMobile() {
