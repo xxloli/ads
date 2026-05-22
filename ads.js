@@ -323,7 +323,7 @@ function initAll() {
                 if (pendingIframes <= 0 && currentTimeout) {
                     clearTimeout(currentTimeout);
                     if (isLoopRunning) {
-                        currentTimeout = setTimeout(runIframeLoop, 5000);
+                        currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 4000) + 4000);
                     } else {
                         isLoopRunning = false;
                     }
@@ -356,12 +356,12 @@ function initAll() {
             currentTimeout = setTimeout(function() {
                 if (currentTimeout) {
                     if (isLoopRunning) {
-                        currentTimeout = setTimeout(runIframeLoop, 5000);
+                        currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 4000) + 4000);
                     } else {
                         isLoopRunning = false;
                     }
                 }
-            }, 10000);
+            }, Math.floor(Math.random() * 3000) + 11000);
         }
 
         window.addEventListener('beforeunload', function() {
