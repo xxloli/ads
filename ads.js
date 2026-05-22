@@ -4,66 +4,6 @@ var m = (today.getMonth() + 1).toString().padStart(2, '0');
 var d = today.getDate().toString().padStart(2, '0');
 var dateParam = y + m + d;
 
-function waitForIframesThenRemove(container, maxWaitMs) {
-    maxWaitMs = maxWaitMs || 15000;
-    var removed = false;
-    function doRemove() {
-        if (!removed && container && container.parentNode) {
-            container.parentNode.removeChild(container);
-            removed = true;
-        }
-    }
-    var timeout = setTimeout(doRemove, maxWaitMs);
-    var pendingIframes = 0;
-    function attachLoadListener(ifr) {
-        var isLoaded = false;
-        try {
-            isLoaded = ifr.contentDocument && ifr.contentDocument.readyState === 'complete';
-        } catch (e) {}
-        if (isLoaded) {
-            pendingIframes--;
-            if (pendingIframes <= 0) {
-                clearTimeout(timeout);
-                observer.disconnect();
-                doRemove();
-            }
-        } else {
-            ifr.addEventListener('load', function() {
-                pendingIframes--;
-                if (pendingIframes <= 0) {
-                    clearTimeout(timeout);
-                    observer.disconnect();
-                    doRemove();
-                }
-            });
-        }
-    }
-    var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            for (var i = 0; i < mutation.addedNodes.length; i++) {
-                var node = mutation.addedNodes[i];
-                if (node.tagName === 'IFRAME') {
-                    pendingIframes++;
-                    attachLoadListener(node);
-                }
-                if (node.querySelectorAll) {
-                    var childIframes = node.querySelectorAll('iframe');
-                    for (var j = 0; j < childIframes.length; j++) {
-                        pendingIframes++;
-                        attachLoadListener(childIframes[j]);
-                    }
-                }
-            }
-        });
-    });
-    observer.observe(container, { childList: true, subtree: true });
-    var existingIframes = container.querySelectorAll('iframe');
-    for (var k = 0; k < existingIframes.length; k++) {
-        pendingIframes++;
-        attachLoadListener(existingIframes[k]);
-    }
-}
-
 function runWhenIdle(callback) {
     if ('requestIdleCallback' in window) {
         requestIdleCallback(callback, { timeout: 2000 });
@@ -123,7 +63,6 @@ function initAll() {
                         (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
                     } catch (e) {
                     }
-                    waitForIframesThenRemove(hiddenContainer);
                 };
                 magScript.onerror = function () {
                 };
@@ -145,7 +84,6 @@ function initAll() {
                                     '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
                                     '<ins class="5a165732" data-key="80e98bca8418c00afacdbc93fda6eb0c"></ins>';
             adScript.onload = function() {
-                waitForIframesThenRemove(adContainer);
             };
             function insertAds() {
                 if (document.body) {
