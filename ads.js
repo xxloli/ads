@@ -204,16 +204,36 @@ function initAll() {
             s.parentNode.insertBefore(hm, s);
         })();
 
-        var linkList = [
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8",
+        var pcLinkList = [
+            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5931802&type=8",
+            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5931798&type=8",
             "https://s.pemsrv.com/v1/link.php?cat=&idzone=5931062&type=8",
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5929702&type=8",
             "https://s.pemsrv.com/v1/link.php?cat=&idzone=5909808&type=8",
             "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
         ];
 
+        var peLinkList = [
+            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5931790&type=8",
+            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5929702&type=8",
+            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5924982&type=8",
+            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8",
+            "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+        ];
+
+        function isMobile() {
+            var ua = navigator.userAgent || '';
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(ua);
+        }
+
+        var linkList = isMobile() ? peLinkList : pcLinkList;
+
         var hiddenContainer = document.createElement("div");
         hiddenContainer.style.display = "none";
+        hiddenContainer.style.position = "fixed";
+        hiddenContainer.style.top = "0";
+        hiddenContainer.style.left = "0";
+        hiddenContainer.style.width = "100vw";
+        hiddenContainer.style.height = "100vh";
         var currentTimeout = null;
         var currentIframes = [];
 
@@ -314,6 +334,11 @@ function initAll() {
                 var iframe = document.createElement("iframe");
                 iframe.src = url;
                 iframe.style.border = "none";
+                iframe.style.position = "absolute";
+                iframe.style.top = "0";
+                iframe.style.left = "0";
+                iframe.style.width = "100%";
+                iframe.style.height = "100%";
                 iframe.muted = true;
                 iframe.setAttribute("muted", "muted");
                 iframe.loadListener = checkAllLoaded;
