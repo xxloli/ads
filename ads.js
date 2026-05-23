@@ -143,23 +143,23 @@ function initAll() {
         })();
 
         var pcLinkList = [
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5931802&type=8",
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5931798&type=8",
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5931062&type=8",
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5909808&type=8",
+            `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931802, 5931798, 5931062, 5909808][Math.floor(Math.random() * 4)]}&type=8`,
+            `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931802, 5931798, 5931062, 5909808][Math.floor(Math.random() * 4)]}&type=8`,
+            `https://5.wrnm.de5.net/v1/link.php?cat=&idzone=${[5931802, 5931798, 5931062, 5909808][Math.floor(Math.random() * 4)]}&type=8`,
             "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://4.wrnm.de5.net/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+
         ];
 
         var peLinkList = [
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5931790&type=8",
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5929702&type=8",
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5924982&type=8",
-            "https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8",
+            `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931790, 5929702, 5924982, 5923404][Math.floor(Math.random() * 4)]}&type=8`,
+            `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931790, 5929702, 5924982, 5923404][Math.floor(Math.random() * 4)]}&type=8`,
+            `https://5.wrnm.de5.net/v1/link.php?cat=&idzone=${[5931790, 5929702, 5924982, 5923404][Math.floor(Math.random() * 4)]}&type=8`,
             "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            "https://5.wrnm.de5.net/v1/link.php?cat=&idzone=5931802&type=8",
+            "https://4.wrnm.de5.net/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+            
         ];
 
         function isMobile() {
