@@ -72,6 +72,64 @@
     }
   }
 
+  function addCloseButtonIfNeeded(container) {
+    if (!container.querySelector('iframe')) {
+      return;
+    }
+    if (container.querySelector('.ad-close-btn')) {
+      return;
+    }
+    var btn = document.createElement('span');
+    btn.className = 'ad-close-btn';
+    btn.textContent = '✕';
+    btn.style.cssText =
+      'position:absolute;top:4px;left:4px;z-index:9999;' +
+      'width:36px;height:36px;line-height:36px;text-align:center;' +
+      'font-size:22px;font-weight:bold;color:#fff;' +
+      'background:rgba(0,0,0,0.6);border-radius:50%;cursor:pointer;' +
+      'user-select:none;';
+    container.style.position =
+      getComputedStyle(container).position === 'static'
+        ? 'relative'
+        : getComputedStyle(container).position;
+    container.appendChild(btn);
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      this.parentNode.style.display = 'none';
+    });
+  }
+
+  function observeAdContainer(container) {
+    var observer = new MutationObserver(function (mutations) {
+      for (var k = 0; k < mutations.length; k++) {
+        var addedNodes = mutations[k].addedNodes;
+        for (var m = 0; m < addedNodes.length; m++) {
+          var node = addedNodes[m];
+          if (node.nodeName === 'IFRAME') {
+            addCloseButtonIfNeeded(container);
+            return;
+          }
+          if (node.querySelector && node.querySelector('iframe')) {
+            addCloseButtonIfNeeded(container);
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(container, { childList: true, subtree: true });
+  }
+
+  function addCloseButtonsToAds() {
+    for (var i = 0; i < AD_SELECTORS.length; i++) {
+      var elements = document.querySelectorAll(AD_SELECTORS[i]);
+      for (var j = 0; j < elements.length; j++) {
+        var container = elements[j];
+        addCloseButtonIfNeeded(container);
+        observeAdContainer(container);
+      }
+    }
+  }
+
   function applyAdFreeState() {
     if (isAdFreeToday()) {
       hideAllAds();
@@ -151,12 +209,14 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initDisplayElement();
+      addCloseButtonsToAds();
       applyAdFreeState();
       attachClickListeners();
       attachCounterClickListener();
     });
   } else {
     initDisplayElement();
+    addCloseButtonsToAds();
     applyAdFreeState();
     attachClickListeners();
     attachCounterClickListener();
