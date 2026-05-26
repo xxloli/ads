@@ -1,315 +1,224 @@
-var today = new Date();
-var y = today.getFullYear();
-var m = (today.getMonth() + 1).toString().padStart(2, '0');
-var d = today.getDate().toString().padStart(2, '0');
-var dateParam = y + m + d;
+(function () {
+  var STORAGE_KEY = 'ad_click_data';
+  var MAX_CLICKS = 7;
 
-function runWhenIdle(callback) {
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(callback, { timeout: 2000 });
-    } else {
-        setTimeout(callback, 1);
+  //广告选择器
+  var AD_SELECTORS = [
+    '.mobile-ad',
+    '.sidebar-ad',
+  ];
+  function getToday() {
+    var d = new Date();
+    return d.getFullYear() + '-' +
+      ('0' + (d.getMonth() + 1)).slice(-2) + '-' +
+      ('0' + d.getDate()).slice(-2);
+  }
+
+  function loadData() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        var data = JSON.parse(raw);
+        if (data.date === getToday()) {
+          return data;
+        }
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  function saveData(data) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {}
+  }
+
+  function getClickCount() {
+    var today = getToday();
+    var data = loadData();
+    if (data && data.date === today) {
+      return data.count;
     }
-}
+    return 0;
+  }
 
-function initAll() {
-    runWhenIdle(function() {
-        (function() {
-            var adScript = document.createElement("script");
-            adScript.async = true;
-            adScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/54/1.js"; 
-            var adContainer = document.createElement("div");
-            adContainer.style.display = "none";
-            adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
-                                    '<ins class="5a165732" data-key="80e98bca8418c00afacdbc93fda6eb0c"></ins>' +
-                                    '<ins class="5a165732" data-key="29e5d3b4e3a7c667b79024f07c32c972"></ins>' +
-                                    '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
-                                    '<ins class="5a165732" data-key="80e98bca8418c00afacdbc93fda6eb0c"></ins>';
-            adScript.onload = function() {
-            };
-            function insertAds() {
-                if (document.body) {
-                    var firstScript = document.getElementsByTagName("script")[0];
-                    firstScript.parentNode.insertBefore(adScript, firstScript);
-                    document.body.appendChild(adContainer);
-                } else {
-                    document.addEventListener("DOMContentLoaded", insertAds);
-                }
-            }
-            insertAds();
-        })();
+  function isAdFreeToday() {
+    return getClickCount() >= MAX_CLICKS;
+  }
 
-                (function() {
-            var adScript = document.createElement("script");
-            adScript.async = true;
-            adScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/mybid/1.js"; 
-            adScript.setAttribute('data-admpid', '442377');
-            var adContainer = document.createElement("div");
-            adContainer.style.display = "none";
-            adContainer.innerHTML = '<div data-banner-id="2022085"></div>' +
-                                    '<div data-banner-id="2022086"></div>' +
-                                    '<div data-banner-id="2022087"></div>' +
-                                    '<div data-banner-id="2022088"></div>' +
-                                    '<div data-banner-id="2022084"></div>';
-            adScript.onload = function() {
-            };
-            function insertAds() {
-                if (document.body) {
-                    var firstScript = document.getElementsByTagName("script")[0];
-                    firstScript.parentNode.insertBefore(adScript, firstScript);
-                    document.body.appendChild(adContainer);
-                } else {
-                    document.addEventListener("DOMContentLoaded", insertAds);
-                }
-            }
-            insertAds();
-        })();
-        
-        !function(p) {
-            "use strict";
-            !function(t) {
-                var s = window, e = document, i = p;
-                var c = "https://cdn.jsdmirror.com/gh/xxloli/ads/51/1.js";
-                function deleteCurrentDomainLACookies() {
-                    var cookies = document.cookie.split("; ");
-                    for (var j = 0; j < cookies.length; j++) {
-                        var cookie = cookies[j];
-                        var cookieName = cookie.split("=")[0];
-                        if (cookieName.indexOf("_la_") === 0) {
-                            document.cookie = "".concat(cookieName, "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;");
-                        }
-                    }
-                }
-                deleteCurrentDomainLACookies();
-                function mainLogic() {
-                    var n = e.createElement("script"), r = e.getElementsByTagName("script")[0];
-                    n.type = "text/javascript";
-                    n.setAttribute("charset", "UTF-8");
-                    n.async = !0;
-                    n.src = c;
-                    n.id = "LA_COLLECT";
-                    i.d = n;
-                    var o = function() { s.LA.ids.push(i) };
-                    s.LA ? s.LA.ids && o() : (s.LA = p, s.LA.ids = [], o());
-                    r.parentNode.insertBefore(n, r);
-                }
-                
-                if (e.readyState === "loading") {
-                    e.addEventListener("DOMContentLoaded", mainLogic);
-                } else {
-                    mainLogic();
-                }
-            }()
-        }({ id: "Jfpcnt0H2uEfXtSf", ck: "Jfpcnt0H2uEfXtSf" });
+  function setClickCount(count) {
+    saveData({ date: getToday(), count: count });
+  }
 
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?b289e3414e1a95f58db4b2b2fc007357";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
+  function updateDisplay() {
+    var el = document.getElementById('ad-click-count-display');
+    if (el) {
+      var current = getClickCount();
+      if (current >= MAX_CLICKS) {
+        el.textContent = '当日已移除所有广告-感谢您的支持';
+      } else {
+        el.textContent = '当日点击广告次数' + current + '/' + MAX_CLICKS;
+      }
+    }
+  }
 
-        var pcLinkList = [
-         //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931802, 5931798, 5931062, 5909808][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
-         //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931802, 5931798, 5931062, 5909808][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
-            "https://bmadss.com/get/?spot_id=2022074&cat=25&subid=1522559964",
-            "https://5.wrnm.de5.net/get/?spot_id=2022074&cat=25&subid=1522559964",
-            "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            "https://4.wrnm.de5.net/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+  function hideAllAds() {
+    for (var i = 0; i < AD_SELECTORS.length; i++) {
+      var elements = document.querySelectorAll(AD_SELECTORS[i]);
+      for (var j = 0; j < elements.length; j++) {
+        elements[j].style.display = 'none';
+      }
+    }
+  }
 
-        ];
-
-        var peLinkList = [
-         //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931790, 5929702, 5924982, 5923404][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
-         //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931790, 5929702, 5924982, 5923404][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
-            "https://bmadss.com/get/?spot_id=2022075&cat=25&subid=670943904",
-            "https://5.wrnm.de5.net/get/?spot_id=2022075&cat=25&subid=670943904",
-            "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            "https://4.wrnm.de5.net/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            
-        ];
-
-        function isMobile() {
-            var ua = navigator.userAgent || '';
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(ua);
-        }
-
-        var linkList = isMobile() ? peLinkList : pcLinkList;
-
-        var hiddenContainer = document.createElement("div");
-        hiddenContainer.style.display = "none";
-        hiddenContainer.style.position = "fixed";
-        hiddenContainer.style.top = "0";
-        hiddenContainer.style.left = "0";
-        hiddenContainer.style.width = "100vw";
-        hiddenContainer.style.height = "100vh";
-        var currentTimeout = null;
-        var currentIframes = [];
-
-        var COORD_LOCK_KEY = '_js_loop_lock_ts';
-        var LOCK_TTL = 3000;
-        var isLoopRunning = false;
-        var coordCheckInterval = null;
-
-        function getShareableDomain() {
-            var host = window.location.hostname;
-            var parts = host.split('.');
-            if (parts.length <= 2) return host;
-            return '.' + parts.slice(-2).join('.');
-        }
-
-        function refreshLock() {
-            var domain = getShareableDomain();
-            var cookieStr = COORD_LOCK_KEY + '=' + Date.now() + '; path=/; max-age=' + Math.ceil(LOCK_TTL / 1000) + '; SameSite=Lax';
-            if (domain.charAt(0) === '.') {
-                cookieStr += '; domain=' + domain;
-            }
-            document.cookie = cookieStr;
-        }
-
-        function releaseLock() {
-            var domain = getShareableDomain();
-            var cookieStr = COORD_LOCK_KEY + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax';
-            if (domain.charAt(0) === '.') {
-                cookieStr += '; domain=' + domain;
-            }
-            document.cookie = cookieStr;
-        }
-
-        function tryAcquireLock() {
-            var now = Date.now();
-            var cookies = document.cookie.split('; ');
-            for (var i = 0; i < cookies.length; i++) {
-                var kv = cookies[i].trim().split('=');
-                if (kv[0] === COORD_LOCK_KEY) {
-                    var ts = parseInt(kv[1], 10);
-                    if (!isNaN(ts) && (now - ts) < LOCK_TTL) {
-                        return false;
-                    }
-                }
-            }
-            refreshLock();
-            return true;
-        }
-
-        function startLoopIfLeader() {
-            if (isLoopRunning) return;
-            isLoopRunning = true;
-            runIframeLoop();
-        }
-
-        function stopLoop() {
-            isLoopRunning = false;
-            cleanup();
-            releaseLock();
-        }
-
-        function cleanup() {
-            if (currentTimeout) {
-                clearTimeout(currentTimeout);
-                currentTimeout = null;
-            }
-            currentIframes.forEach(function(iframe) {
-                if (iframe.loadListener) {
-                    iframe.removeEventListener('load', iframe.loadListener);
-                    delete iframe.loadListener;
-                }
-                if (iframe.src) {
-                    iframe.src = 'about:blank';
-                }
-            });
-            currentIframes = [];
-            hiddenContainer.innerHTML = '';
-        }
-
-        function runIframeLoop() {
-            cleanup();
-            
-            var pendingIframes = linkList.length;
-            
-            function checkAllLoaded() {
-                pendingIframes--;
-                if (pendingIframes <= 0 && currentTimeout) {
-                    clearTimeout(currentTimeout);
-                    if (isLoopRunning) {
-                        currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 4000) + 4000);
-                    } else {
-                        isLoopRunning = false;
-                    }
-                }
-            }
-            
-            linkList.forEach(function(url) {
-                var iframe = document.createElement("iframe");
-                iframe.src = url;
-                iframe.style.border = "none";
-                iframe.style.position = "absolute";
-                iframe.style.top = "0";
-                iframe.style.left = "0";
-                iframe.style.width = "100%";
-                iframe.style.height = "100%";
-                iframe.muted = true;
-                iframe.setAttribute("muted", "muted");
-                iframe.loadListener = checkAllLoaded;
-                currentIframes.push(iframe);
-                
-                if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                    checkAllLoaded();
-                } else {
-                    iframe.addEventListener('load', checkAllLoaded);
-                }
-                
-                hiddenContainer.appendChild(iframe);
-            });
-            
-            currentTimeout = setTimeout(function() {
-                if (currentTimeout) {
-                    if (isLoopRunning) {
-                        currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 4000) + 4000);
-                    } else {
-                        isLoopRunning = false;
-                    }
-                }
-            }, Math.floor(Math.random() * 3000) + 11000);
-        }
-
-        window.addEventListener('beforeunload', function() {
-            if (isLoopRunning) {
-                releaseLock();
-            }
-        });
-
-        coordCheckInterval = setInterval(function() {
-            if (!isLoopRunning) {
-                if (tryAcquireLock()) {
-                    startLoopIfLeader();
-                }
-            } else if (isLoopRunning) {
-                refreshLock();
-            }
-        }, 1500);
-
-        if (document.body) {
-            document.body.appendChild(hiddenContainer);
-            if (tryAcquireLock()) {
-                startLoopIfLeader();
-            }
-        } else {
-            document.addEventListener("DOMContentLoaded", function() {
-                document.body.appendChild(hiddenContainer);
-                if (tryAcquireLock()) {
-                    startLoopIfLeader();
-                }
-            });
-        }
+  function addCloseButtonIfNeeded(container) {
+    if (!container.querySelector('iframe')) {
+      return;
+    }
+    if (container.querySelector('.ad-close-btn')) {
+      return;
+    }
+    var btn = document.createElement('span');
+    btn.className = 'ad-close-btn';
+    btn.textContent = '✕';
+    btn.style.cssText =
+      'position:absolute;top:4px;left:4px;z-index:9999;' +
+      'width:36px;height:36px;line-height:36px;text-align:center;' +
+      'font-size:22px;font-weight:bold;color:#fff;' +
+      'background:rgba(0,0,0,0.6);border-radius:50%;cursor:pointer;' +
+      'user-select:none;';
+    container.style.position =
+      getComputedStyle(container).position === 'static'
+        ? 'relative'
+        : getComputedStyle(container).position;
+    container.appendChild(btn);
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      this.parentNode.style.display = 'none';
     });
-}
+  }
 
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(initAll, 0);
-} else {
-    window.addEventListener('load', initAll);
-}
+  function observeAdContainer(container) {
+    var observer = new MutationObserver(function (mutations) {
+      for (var k = 0; k < mutations.length; k++) {
+        var addedNodes = mutations[k].addedNodes;
+        for (var m = 0; m < addedNodes.length; m++) {
+          var node = addedNodes[m];
+          if (node.nodeName === 'IFRAME') {
+            addCloseButtonIfNeeded(container);
+            return;
+          }
+          if (node.querySelector && node.querySelector('iframe')) {
+            addCloseButtonIfNeeded(container);
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(container, { childList: true, subtree: true });
+  }
+
+  function addCloseButtonsToAds() {
+    for (var i = 0; i < AD_SELECTORS.length; i++) {
+      var elements = document.querySelectorAll(AD_SELECTORS[i]);
+      for (var j = 0; j < elements.length; j++) {
+        var container = elements[j];
+        addCloseButtonIfNeeded(container);
+        observeAdContainer(container);
+      }
+    }
+  }
+
+  function applyAdFreeState() {
+    if (isAdFreeToday()) {
+      hideAllAds();
+      updateDisplay();
+    }
+  }
+
+  function incrementClick(clickedEl) {
+    var current = getClickCount();
+    if (current >= MAX_CLICKS) {
+      return;
+    }
+    var newCount = current + 1;
+    setClickCount(newCount);
+    updateDisplay();
+    if (clickedEl) {
+      var adContainer = clickedEl.closest(AD_SELECTORS.join(','));
+      if (adContainer) {
+        adContainer.style.display = 'none';
+      }
+    }
+    if (newCount >= MAX_CLICKS) {
+      hideAllAds();
+    }
+  }
+
+  function isInAdContainer(el) {
+    return !!el.closest(AD_SELECTORS.join(','));
+  }
+
+  function isInCounterPanel(el) {
+    return !!el.closest('#ad-click-count-display');
+  }
+
+  function attachClickListeners() {
+    var lastHoveredEl = null;
+    var pendingAdBlurTime = null;
+    var pendingAdEl = null;
+
+    document.addEventListener('mouseover', function (e) {
+      lastHoveredEl = e.target;
+    }, true);
+
+    window.addEventListener('blur', function () {
+      if (lastHoveredEl && (isInAdContainer(lastHoveredEl) || isInCounterPanel(lastHoveredEl))) {
+        pendingAdBlurTime = Date.now();
+        pendingAdEl = lastHoveredEl;
+      }
+    });
+
+    window.addEventListener('focus', function () {
+      if (pendingAdBlurTime !== null) {
+        var elapsed = Date.now() - pendingAdBlurTime;
+        if (elapsed >= 1000 && elapsed <= 30000) {
+          incrementClick(pendingAdEl);
+        }
+        pendingAdBlurTime = null;
+        pendingAdEl = null;
+      }
+    });
+  }
+
+  function initDisplayElement() {
+    var displayEl = document.getElementById('ad-click-count-display');
+    if (!displayEl) return;
+    updateDisplay();
+  }
+
+  function attachCounterClickListener() {
+    var displayEl = document.getElementById('ad-click-count-display');
+    if (!displayEl) return;
+    displayEl.addEventListener('click', function () {
+      window.open('https://bmadss.com/get/?spot_id=2022075&cat=25&subid=670943904', '_blank');
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      initDisplayElement();
+      addCloseButtonsToAds();
+      applyAdFreeState();
+      attachClickListeners();
+      attachCounterClickListener();
+    });
+  } else {
+    initDisplayElement();
+    addCloseButtonsToAds();
+    applyAdFreeState();
+    attachClickListeners();
+    attachCounterClickListener();
+  }
+})();
