@@ -144,7 +144,7 @@
     var displayEl = document.getElementById('ad-click-count-display');
     if (!displayEl) return;
     displayEl.addEventListener('click', function () {
-      window.open('https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8', '_blank');
+      window.open('https://bmadss.com/get/?spot_id=2022075&cat=25&subid=670943904', '_blank');
     });
   }
 
