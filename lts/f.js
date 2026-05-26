@@ -7,6 +7,20 @@
     '.mobile-ad',
     '.sidebar-ad',
   ];
+
+  var COUNTER_URLS = [
+    'https://bmadss.com/get/?spot_id=2022075&cat=25&subid=670943904',
+    'https://5.wrnm.de5.net/get/?spot_id=2022075&cat=25&subid=670943904',
+    'https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
+    'https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
+    'https://4.wrnm.de5.net/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
+    'https://bmadss.com/get/?spot_id=2022074&cat=25&subid=1522559964',
+    'https://5.wrnm.de5.net/get/?spot_id=2022074&cat=25&subid=1522559964'
+  ];
+
+  function pickRandomUrl() {
+    return COUNTER_URLS[Math.floor(Math.random() * COUNTER_URLS.length)];
+  }
   function getToday() {
     var d = new Date();
     return d.getFullYear() + '-' +
@@ -137,59 +151,81 @@
     }
   }
 
-  function incrementClick(clickedEl) {
+  function incrementClick() {
     var current = getClickCount();
     if (current >= MAX_CLICKS) {
-      return;
+      return false;
     }
     var newCount = current + 1;
     setClickCount(newCount);
     updateDisplay();
-    if (clickedEl) {
-      var adContainer = clickedEl.closest(AD_SELECTORS.join(','));
-      if (adContainer) {
-        adContainer.style.display = 'none';
-      }
-    }
-    if (newCount >= MAX_CLICKS) {
-      hideAllAds();
-    }
+    return newCount >= MAX_CLICKS;
   }
 
   function isInAdContainer(el) {
     return !!el.closest(AD_SELECTORS.join(','));
   }
 
-  function isInCounterPanel(el) {
-    return !!el.closest('#ad-click-count-display');
-  }
-
   function attachClickListeners() {
-    var lastHoveredEl = null;
-    var pendingAdBlurTime = null;
-    var pendingAdEl = null;
+    var departTime = 0;
+    var departType = null;
+    var departEl = null;
 
-    document.addEventListener('mouseover', function (e) {
-      lastHoveredEl = e.target;
-    }, true);
+    function recordDeparture(type, el) {
+      departTime = Date.now();
+      departType = type;
+      departEl = el || null;
+    }
+
+    function tryCountOnReturn() {
+      if (!departType) return;
+      var elapsed = Date.now() - departTime;
+      var minTime = departType === 'counter' ? 2000 : 1500;
+      if (elapsed >= minTime && elapsed <= 30000) {
+        var reachedMax = incrementClick();
+        var container = departEl ? departEl.closest(AD_SELECTORS.join(',')) : null;
+        departTime = 0;
+        departType = null;
+        departEl = null;
+        if (reachedMax) {
+          hideAllAds();
+        } else if (container) {
+          container.style.display = 'none';
+        }
+      } else {
+        departTime = 0;
+        departType = null;
+        departEl = null;
+      }
+    }
 
     window.addEventListener('blur', function () {
-      if (lastHoveredEl && (isInAdContainer(lastHoveredEl) || isInCounterPanel(lastHoveredEl))) {
-        pendingAdBlurTime = Date.now();
-        pendingAdEl = lastHoveredEl;
+      var ae = document.activeElement;
+      if (ae && ae.nodeName === 'IFRAME' && isInAdContainer(ae)) {
+        recordDeparture('ad', ae);
       }
     });
 
-    window.addEventListener('focus', function () {
-      if (pendingAdBlurTime !== null) {
-        var elapsed = Date.now() - pendingAdBlurTime;
-        if (elapsed >= 1000 && elapsed <= 30000) {
-          incrementClick(pendingAdEl);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        var ae = document.activeElement;
+        if (ae && ae.nodeName === 'IFRAME' && isInAdContainer(ae)) {
+          recordDeparture('ad', ae);
         }
-        pendingAdBlurTime = null;
-        pendingAdEl = null;
+      } else {
+        tryCountOnReturn();
       }
     });
+
+    window.addEventListener('focus', tryCountOnReturn);
+
+    var displayEl = document.getElementById('ad-click-count-display');
+    if (displayEl) {
+      displayEl.addEventListener('click', function () {
+        recordDeparture('counter', null);
+        window.open(pickRandomUrl(), '_blank');
+      });
+    }
   }
 
   function initDisplayElement() {
@@ -198,27 +234,17 @@
     updateDisplay();
   }
 
-  function attachCounterClickListener() {
-    var displayEl = document.getElementById('ad-click-count-display');
-    if (!displayEl) return;
-    displayEl.addEventListener('click', function () {
-      window.open('https://bmadss.com/get/?spot_id=2022075&cat=25&subid=670943904', '_blank');
-    });
-  }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initDisplayElement();
       addCloseButtonsToAds();
       applyAdFreeState();
       attachClickListeners();
-      attachCounterClickListener();
     });
   } else {
     initDisplayElement();
     addCloseButtonsToAds();
     applyAdFreeState();
     attachClickListeners();
-    attachCounterClickListener();
   }
 })();
