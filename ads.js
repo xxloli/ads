@@ -97,7 +97,7 @@ function initAll() {
         var peLinkList = [
          //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931790, 5929702, 5924982, 5923404][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
          //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931790, 5929702, 5924982, 5923404][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
-            "https://bmadss.com/get/?spot_id=2022074&cat=25&subid=1522559964",
+            "https://bmadss.com/get/?spot_id=2022075&cat=25&subid=670943904",
             "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://4.wrnm.de5.net/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
