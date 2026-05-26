@@ -27,11 +27,11 @@ jobs:
           mkdir -p 54
           curl -fsSL -o 54/1.js https://adservercdn.54ads.com/7db20370.js || rm -f 54/1.js
           
-      - name: Download ExoClick ads JS
+      - name: Download mybid
         continue-on-error: true
         run: |
           mkdir -p exo
-          curl -fsSL -o exo/1.js https://a.magsrv.com/ad-provider.js || rm -f exo/1.js
+          curl -fsSL -o mybid/1.js https://js.mbidadm.com/static/scripts.js || rm -f mybid/1.js
 
       - name: Commit and push if changed
         if: success() || failure()
@@ -40,7 +40,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           [ -f 51/1.js ] && git add 51/1.js || true
           [ -f 54/1.js ] && git add 54/1.js || true
-          [ -f exo/1.js ] && git add exo/1.js || true
+          [ -f mybid/1.js ] && git add mybid/1.js || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
