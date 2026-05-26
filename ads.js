@@ -14,64 +14,6 @@ function runWhenIdle(callback) {
 
 function initAll() {
     runWhenIdle(function() {
-        (function () {
-            try {
-                if (!window.AdProvider) {
-                    window.AdProvider = [];
-                }
-                var adConfigs = [
-                    { className: "eas6a97888e10", zoneid: "5909834" },
-                    { className: "eas6a97888e10", zoneid: "5923402" }, 
-                    { className: "eas6a97888e2", zoneid: "5910938" },
-                    { className: "eas6a97888e2", zoneid: "5911752" },
-                    { className: "eas6a97888e2", zoneid: "5910936" },
-                    { className: "eas6a97888e10", zoneid: "5909830" },
-                    { className: "eas6a97888e38", zoneid: "5921986" }, 
-                    { className: "eas6a97888e20", zoneid: "5921988" },   
-                    { className: "eas6a97888e2", zoneid: "5923416" }, 
-
-                ];
-                var hiddenContainer = document.createElement("div");
-                hiddenContainer.style.display = "none"; 
-                function insertMultipleAds() {
-                    if (document.body) {
-                        document.body.appendChild(hiddenContainer);
-                        adConfigs.forEach(function(config) {
-                            var ins = document.createElement("ins");
-                            ins.className = config.className;
-                            ins.setAttribute("data-zoneid", config.zoneid);
-                            hiddenContainer.appendChild(ins);
-                        });
-                    } else {
-                        document.addEventListener("DOMContentLoaded", function() {
-                            document.body.appendChild(hiddenContainer);
-                            adConfigs.forEach(function(config) {
-                                var ins = document.createElement("ins");
-                                ins.className = config.className;
-                                ins.setAttribute("data-zoneid", config.zoneid);
-                                hiddenContainer.appendChild(ins);
-                            });
-                        });
-                    }
-                }
-                insertMultipleAds();
-                var magScript = document.createElement("script");
-                magScript.async = true;
-                magScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/exo/1.js"; 
-                magScript.onload = function () {
-                    try {
-                        (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
-                    } catch (e) {
-                    }
-                };
-                magScript.onerror = function () {
-                };
-                var firstScript = document.getElementsByTagName("script")[0];
-                firstScript.parentNode.insertBefore(magScript, firstScript);
-            } catch (e) {
-            }
-        })();
-
         (function() {
             var adScript = document.createElement("script");
             adScript.async = true;
