@@ -49,6 +49,7 @@ function initAll() {
             adContainer.innerHTML = '<div data-banner-id="2022085"></div>' +
                                     '<div data-banner-id="2022086"></div>' +
                                     '<div data-banner-id="2022087"></div>' +
+                                    '<div data-banner-id="2022088"></div>' +
                                     '<div data-banner-id="2022084"></div>';
             adScript.onload = function() {
             };
