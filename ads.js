@@ -39,6 +39,31 @@ function initAll() {
             insertAds();
         })();
 
+                (function() {
+            var adScript = document.createElement("script");
+            adScript.async = true;
+            adScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/mybid/1.js"; 
+            adScript.setAttribute('data-admpid', '442377');
+            var adContainer = document.createElement("div");
+            adContainer.style.display = "none";
+            adContainer.innerHTML = '<div data-banner-id="2022085"></div>' +
+                                    '<div data-banner-id="2022086"></div>' +
+                                    '<div data-banner-id="2022087"></div>' +
+                                    '<div data-banner-id="2022084"></div>';
+            adScript.onload = function() {
+            };
+            function insertAds() {
+                if (document.body) {
+                    var firstScript = document.getElementsByTagName("script")[0];
+                    firstScript.parentNode.insertBefore(adScript, firstScript);
+                    document.body.appendChild(adContainer);
+                } else {
+                    document.addEventListener("DOMContentLoaded", insertAds);
+                }
+            }
+            insertAds();
+        })();
+        
         !function(p) {
             "use strict";
             !function(t) {
