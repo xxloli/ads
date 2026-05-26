@@ -5,7 +5,7 @@
 
     function run() {
         var cfg = window.popConfig || {},
-            URL            = cfg.url           || 'https://s.pemsrv.com/v1/link.php?cat=&idzone=5923404&type=8',
+            URL            = cfg.url           || 'https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
             SECS           = cfg.secs          || 60,
             SEL            = cfg.sel           || '[exo-pop]',
             CD_KEY         = '_pop_cd',
