@@ -10,12 +10,12 @@
 
   var COUNTER_URLS = [
     'https://bmadss.com/get/?spot_id=2022075&cat=25&subid=670943904',
-    'https://5.wrnm.de5.net/get/?spot_id=2022075&cat=25&subid=670943904',
+    'https://2.test.0147258.xyz/get/?spot_id=2022075&cat=25&subid=670943904',
     'https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
     'https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
-    'https://4.wrnm.de5.net/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
+    'https://1.test.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
     'https://bmadss.com/get/?spot_id=2022074&cat=25&subid=1522559964',
-    'https://5.wrnm.de5.net/get/?spot_id=2022074&cat=25&subid=1522559964'
+    'https://2.test.0147258.xyz/get/?spot_id=2022074&cat=25&subid=1522559964'
   ];
 
   function pickRandomUrl() {
