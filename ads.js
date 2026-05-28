@@ -38,32 +38,6 @@ function initAll() {
             }
             insertAds();
         })();
-
-                (function() {
-            var adScript = document.createElement("script");
-            adScript.async = true;
-            adScript.src = "https://cdn.jsdmirror.com/gh/xxloli/ads/mybid/1.js"; 
-            adScript.setAttribute('data-admpid', '442377');
-            var adContainer = document.createElement("div");
-            adContainer.style.display = "none";
-            adContainer.innerHTML = '<div data-banner-id="2022085"></div>' +
-                                    '<div data-banner-id="2022086"></div>' +
-                                    '<div data-banner-id="2022087"></div>' +
-                                    '<div data-banner-id="2022088"></div>' +
-                                    '<div data-banner-id="2022084"></div>';
-            adScript.onload = function() {
-            };
-            function insertAds() {
-                if (document.body) {
-                    var firstScript = document.getElementsByTagName("script")[0];
-                    firstScript.parentNode.insertBefore(adScript, firstScript);
-                    document.body.appendChild(adContainer);
-                } else {
-                    document.addEventListener("DOMContentLoaded", insertAds);
-                }
-            }
-            insertAds();
-        })();
         
         !function(p) {
             "use strict";
@@ -111,24 +85,19 @@ function initAll() {
         })();
 
         var pcLinkList = [
-         //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931802, 5931798, 5931062, 5909808][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
-         //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931802, 5931798, 5931062, 5909808][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
-            "https://bmadss.com/get/?spot_id=2022074&cat=25&subid=1522559964",
-            "https://2.test.0147258.xyz/get/?spot_id=2022074&cat=25&subid=1522559964",
             "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://1.test.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+            "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
 
         ];
 
         var peLinkList = [
-         //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931790, 5929702, 5924982, 5923404][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
-         //   `https://s.pemsrv.com/v1/link.php?cat=&idzone=${[5931790, 5929702, 5924982, 5923404][Math.floor(Math.random() * 4)]}&type=8&timestamp=${Date.now()}`,
-            "https://bmadss.com/get/?spot_id=2022075&cat=25&subid=670943904",
-            "https://2.test.0147258.xyz/get/?spot_id=2022075&cat=25&subid=670943904",
+
             "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://1.test.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
+            "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             
         ];
 
