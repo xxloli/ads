@@ -91,6 +91,7 @@ function initAll() {
             "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             `https://234ads.com/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
             `https://234ads.com/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
+            `https://3.test.0147258.xyz/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
         ];
 
         var peLinkList = [
@@ -100,6 +101,7 @@ function initAll() {
             "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
             `https://234ads.com/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
             `https://234ads.com/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
+            `https://3.test.0147258.xyz/?c=${['3ke59x6d','d2txw9rk','9t5wtrw8','0n1kn6an'][Math.floor(Math.random()*4)]}&type=8&timestamp=${Date.now()}`,
         ];
 
         function isMobile() {
