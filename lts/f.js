@@ -94,7 +94,7 @@
     btn.className = 'ad-close-btn';
     btn.textContent = '✕';
     btn.style.cssText =
-      'position:absolute;top:4px;left:4px;z-index:9999;' +
+      'position:absolute;top:4px;left:4px;z-index:999;' +
       'width:36px;height:36px;line-height:36px;text-align:center;' +
       'font-size:22px;font-weight:bold;color:#fff;' +
       'background:rgba(0,0,0,0.6);border-radius:50%;cursor:pointer;' +
