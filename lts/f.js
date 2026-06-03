@@ -13,6 +13,7 @@
     'https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
     'https://1.test.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
     'https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
+    'https://cdn77.aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
   ];
 
   function pickRandomUrl() {
@@ -226,7 +227,7 @@
     }
   }
 
-  function checkMaintenanceOverlay() {
+function checkMaintenanceOverlay() {
     var now = new Date();
     var hours = now.getHours();
     var minutes = now.getMinutes();
