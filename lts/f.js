@@ -2,7 +2,7 @@
   var STORAGE_KEY = 'ad_click_data';
   var MAX_CLICKS = 7;
 
-  //广告选择器
+  // 广告选择器
   var AD_SELECTORS = [
     '.mobile-ad',
     '.sidebar-ad',
@@ -18,6 +18,7 @@
   function pickRandomUrl() {
     return COUNTER_URLS[Math.floor(Math.random() * COUNTER_URLS.length)];
   }
+
   function getToday() {
     var d = new Date();
     return d.getFullYear() + '-' +
@@ -225,6 +226,48 @@
     }
   }
 
+  function checkMaintenanceOverlay() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+
+    // 检查是否在 20:00 到 20:05 之间
+    if (hours === 20 && minutes >= 0 && minutes <= 5) {
+        // 创建全屏覆盖层
+        var overlay = document.createElement('div');
+        overlay.id = 'maintenance-overlay';
+        overlay.style.cssText = 
+            'position: fixed; top: 0; left: 0; width: 100%; height: 100%; ' +
+            'background-color: rgba(0, 0, 0, 1); color: #fff; ' +
+            'display: flex; justify-content: center; align-items: center; ' +
+            'z-index: 99999; font-size: 24px; text-align: center; flex-direction: column;';
+        
+        // 计算结束时间 (当天 20:05)
+        var endTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 5, 0);
+
+        // 更新倒计时文本（直接用秒显示）
+        function updateCountdown() {
+            var remaining = endTime - new Date();
+            if (remaining <= 0) {
+                document.body.removeChild(overlay);
+                window.location.reload(); // 强制刷新页面
+                return;
+            }
+            // 将毫秒直接转换为秒并向下取整
+            var remainingSeconds = Math.floor(remaining / 1000);
+            overlay.innerHTML = '20:00 - 20:05<br>系统维护中...<br>剩余时间: ' + remainingSeconds + ' 秒';
+        }
+
+        // 立即执行一次
+        updateCountdown();
+        
+        // 每秒更新一次
+        var intervalId = setInterval(updateCountdown, 1000);
+
+        document.body.appendChild(overlay);
+    }
+}
+
   function initDisplayElement() {
     var displayEl = document.getElementById('ad-click-count-display');
     if (!displayEl) return;
@@ -233,12 +276,18 @@
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
+      // 在 DOM 加载完成后，首先检查并显示维护覆盖层（如果需要）
+      checkMaintenanceOverlay();
+      
       initDisplayElement();
       addCloseButtonsToAds();
       applyAdFreeState();
       attachClickListeners();
     });
   } else {
+    // 如果 DOM 已经加载，直接执行
+    checkMaintenanceOverlay();
+    
     initDisplayElement();
     addCloseButtonsToAds();
     applyAdFreeState();
