@@ -5,7 +5,7 @@
 
     function run() {
         var cfg = window.popConfig || {},
-            URL            = cfg.url           || 'https://1.test.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
+            URL            = cfg.url           || 'https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
             SECS           = cfg.secs          || 60,
             SEL            = cfg.sel           || '[exo-pop]',
             CD_KEY         = '_pop_cd',
