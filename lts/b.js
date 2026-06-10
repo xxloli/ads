@@ -9,7 +9,6 @@ const Config = {
         'nmlts.cc.cd',
         'nmlts.zone.id',
         'nmlts.bot.cd',
-        'nmlts.0147258.xyz',
         'nmlts.412291.xyz',
     ]
 };
