@@ -3,13 +3,12 @@ const Config = {
         'nmlts.nett.to',
         'nmlts.bbroot.com',
         'nmlts.ccwu.cc',
-        'ltss.wrnm.dpdns.org',
         'fuck.cn.mt',
         'wrnm.de5.net',
         'nmlts.cc.cd',
         'nmlts.zone.id',
         'nmlts.bot.cd',
         'nmlts.412291.xyz',
-        'ltsss.wrnm.dpdns.org',
+        'nmlts.wrnm.dpdns.org',
     ]
 };
