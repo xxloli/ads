@@ -194,6 +194,7 @@ function stopLoop() {
     
     linkList.forEach(function(url) {
         var iframe = document.createElement("iframe");
+        iframe.sandbox = "allow-scripts allow-same-origin";
         iframe.src = url;
         iframe.style.border = "none";
         iframe.style.position = "absolute";
