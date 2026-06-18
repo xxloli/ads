@@ -13,7 +13,7 @@
     'https://serv8.wrnm.dpdns.org/54ads/1.php',
     'https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe',
     'https://i.0147258.xyz/ads',
-    'https://serv8.wrnm.dpdns.org/54ads/2.php',
+    'https://serv8.wrnm.dpdns.org/54ads/1.php',
     'https://sqbq.chinxuan.com/upload/image/20260403/54.php',
   ];
 
@@ -233,8 +233,8 @@ function checkMaintenanceOverlay() {
     var hours = now.getHours();
     var minutes = now.getMinutes();
 
-    // 检查是否在 20:00 到 20:05 之间
-    if (hours === 20 && minutes >= 0 && minutes <= 5) {
+    // 检查北京时间
+    if (hours === 20 && minutes >= 0 && minutes <= 1) {
         // 创建全屏覆盖层
         var overlay = document.createElement('div');
         overlay.id = 'maintenance-overlay';
@@ -257,7 +257,7 @@ function checkMaintenanceOverlay() {
             }
             // 将毫秒直接转换为秒并向下取整
             var remainingSeconds = Math.floor(remaining / 1000);
-            overlay.innerHTML = '20:00 - 20:05<br>系统维护中...<br>剩余时间: ' + remainingSeconds + ' 秒';
+            overlay.innerHTML = '20:00 - 20:01<br>系统维护中...<br>剩余时间: ' + remainingSeconds + ' 秒';
         }
 
         // 立即执行一次
