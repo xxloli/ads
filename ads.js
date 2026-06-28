@@ -80,8 +80,8 @@ function runWhenIdle(callback) {
 var peLinkList = [
     "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
     "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
-    "https://serv8.wrnm.dpdns.org/54ads/1.php",
-    "https://sqbq.chinxuan.com/upload/image/20260403/54.php",
+    "https://file.zhuyitai.com/feedback/202606/28/d3f320d087fa20744b3fb214f78d5af3.html",
+    "https://file.zhuyitai.com/feedback/202606/28/eb74cab69e34a5b5820d86483217caa5.html",
 ];
 
 function isMobile() {
