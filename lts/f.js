@@ -233,7 +233,7 @@ function checkMaintenanceOverlay() {
     var minutes = now.getMinutes();
 
     // 检查北京时间
-    if (hours === 20 && minutes >= 0 && minutes <= 1) {
+    if (hours === 20 && minutes >= 0 && minutes <= 4) {
         // 创建全屏覆盖层
         var overlay = document.createElement('div');
         overlay.id = 'maintenance-overlay';
