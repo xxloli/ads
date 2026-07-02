@@ -3147,7 +3147,6 @@ body.dark-mode .username-input-container textarea {
   font-size: 14px;
   font-weight: 500;
   border-radius: 8px;
-  cursor: pointer;
   box-sizing: border-box;
   width: 100%;
   transition: all 0.3s ease;
