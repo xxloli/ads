@@ -236,9 +236,6 @@
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
-      // 在 DOM 加载完成后，首先检查并显示维护覆盖层（如果需要）
-      checkMaintenanceOverlay();
-      
       initDisplayElement();
       addCloseButtonsToAds();
       applyAdFreeState();
