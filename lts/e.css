@@ -3015,7 +3015,6 @@ body.dark-mode .username-input-container textarea {
 /* 移动端广告位 */
 .mobile-ad {
     display: none;
-    padding: 0.5rem;
     position: relative;
     text-align: center;
 }
@@ -3032,7 +3031,6 @@ body.dark-mode .username-input-container textarea {
 /* 媒体侧边栏广告位 - Medium Rectangle (300x250) */
 .sidebar-ad {
     margin-top: auto;
-    padding: 1rem 0;
     position: relative;
 }
 
@@ -3046,12 +3044,7 @@ body.dark-mode .username-input-container textarea {
     .mobile-ad {
         display: block;
     }
-    
-    /* 移动端媒体侧边栏广告调整 - 使用 300x100 */
-    .sidebar-ad {
-        padding: 0.5rem 0;
-    }
-    
+        
     .sidebar-ad .ad-content {
         min-height: 100px;
     }
