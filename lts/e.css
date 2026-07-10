@@ -3154,6 +3154,55 @@ body.dark-mode #history-notice {
   color: white;
 }
 
+/* 日期跳转容器 */
+.history-jump-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.history-jump-container input[type="date"] {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  background: white;
+  color: #333;
+  outline: none;
+}
+
+.history-jump-container input[type="datetime-local"]:focus {
+  border-color: #4361ee;
+  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+}
+
+body.dark-mode .history-jump-container input[type="date"] {
+  background: #2d2d2d;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
+#jump-date-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+#jump-date-btn:hover {
+  background: #388e3c;
+}
+
+#jump-date-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
 .media-placeholder img,
 .media-placeholder video {
 	width: 100%;
