@@ -8,16 +8,23 @@
     { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/14/533bf0c7bb81ea801ee1662638e36a99.js' }//a.js
   ];
 
-  resources.forEach(function(r) {
+  var i = 0;
+  function loadNext() {
+    if (i >= resources.length) return;
+    var r = resources[i++];
     if (r.tag === 'script') {
       var s = document.createElement('script');
       s.src = r.src;
+      s.onload = loadNext;
+      s.onerror = loadNext;
       document.head.appendChild(s);
     } else {
       var l = document.createElement('link');
       l.href = r.href;
       l.rel = r.rel;
       document.head.appendChild(l);
+      loadNext();
     }
-  });
+  }
+  loadNext();
 })();
