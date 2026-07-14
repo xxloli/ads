@@ -10,5 +10,6 @@ const Config = {
         'nmlts.bot.cd',
         'nmlts.412291.xyz',
         'nmlts.wrnm.dpdns.org',
+        'ltss.wrnm.dpdns.org',
     ]
 };
