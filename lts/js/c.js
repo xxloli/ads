@@ -45,7 +45,7 @@ const FileIcons = {
   }, {})),
 
   // 可执行文件
-  ...(['exe','msi','dmg','deb','rpm','apk','app','pkg','snap','flatpak','appimage','run','bin','command','out','appbundle','xap','click','saf','ipa','jar','war','ear','nar','air','gadget','wsb'].reduce((obj, ext) => {
+  ...(['exe','msi','dmg','deb','rpm','apk','apks','app','pkg','snap','flatpak','appimage','run','bin','command','out','appbundle','xap','click','saf','ipa','jar','war','ear','nar','air','gadget','wsb'].reduce((obj, ext) => {
     obj[ext] = { icon: 'fa-file-executable', color: '#8b5cf6', bg: 'linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%)' };
     return obj;
   }, {})),
