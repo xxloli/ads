@@ -5,7 +5,7 @@
     { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/16/80c71f1d1839a237f7bb6eaa164aaee4.js' },//c.js
     { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/15/ef714cf48aa7196a454e8ed8bec8edd6.js' },//d.js
     { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/14/6db2da79ff8a448b3ae78477ea9cc319.js' },//f.js
-    { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/17/ac5ebc8e258cd300257d0ca591a095d6.js' }//a.js
+    { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/17/48f4df2010f28f602c1b14d05517de34.js' }//a.js
   ];
 
   resources.forEach(function(r) {
