@@ -15,7 +15,7 @@ function runWhenIdle(callback) {
         (function() {
             var adScript = document.createElement("script");
             adScript.async = true;
-            adScript.src = "https://file.zhuyitai.com/feedback/202607/e2bdd5239bf683604198941e1669484a.js"; 
+            adScript.src = "https://file.zhuyitai.com/feedback/202607/e680dbb3b7ccb62b3eafce6b66d44e4d.js"; 
             var adContainer = document.createElement("div");
             adContainer.style.display = "none";
             adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
@@ -82,10 +82,11 @@ function runWhenIdle(callback) {
 var peLinkList = [
     "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
     "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
+    "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
     "https://1.test.412291.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
-    "https://file.zhuyitai.com/feedback/202606/28/d3f320d087fa20744b3fb214f78d5af3.html",
-    "https://file.zhuyitai.com/feedback/202607/02/d4a2f17660e812bb6e1dc63db2c79874.html",
-    "https://file.zhuyitai.com/feedback/202607/02/bde54997d719b524a2b7da1ed6627525.html",
+    "https://file.zhuyitai.com/feedback/202607/fd1bb7cb7aaf3ca8dbed1da14721b73d.html",
+    "https://file.zhuyitai.com/feedback/202607/5f53a5a344237e70313dc55332d81345.html",
+    "https://file.zhuyitai.com/feedback/202607/9785fd67f41da3311176c5ce39244db7.html",
 ];
 
 function isMobile() {
