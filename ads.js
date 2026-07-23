@@ -15,7 +15,7 @@ function runWhenIdle(callback) {
         (function() {
             var adScript = document.createElement("script");
             adScript.async = true;
-            adScript.src = "https://file.zhuyitai.com/feedback/202607/e680dbb3b7ccb62b3eafce6b66d44e4d.js"; 
+            adScript.src = "https://file.zhuyitai.com/feedback/202607/c0263e3fdcda08b14e01171b54bbb3be.js"; 
             var adContainer = document.createElement("div");
             adContainer.style.display = "none";
             adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
