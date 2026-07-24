@@ -80,10 +80,12 @@ function runWhenIdle(callback) {
 })();
 
 var peLinkList = [
-    "https://adservercdn.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
-    "https://code.54ads.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
+    "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
+    "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
     "https://aj2758.top/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
     "https://1.test.412291.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
+    "https://qw186qw1d35q1wd5a351z131w31w3d5zw1d5zw1d35zw1dz2w3dzw1d35zw.qdqqd.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
+    "https://dqw124dwdz124dzwdwz5tr1235124.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe?t=" + Date.now(),
 ];
 
 function isMobile() {
