@@ -1,11 +1,11 @@
 (function() {
   var resources = [
-    { tag: 'link',  href: 'https://file.zhuyitai.com/feedback/202607/17/62f53e813183eca49e4ab4e318e7561d.css', rel: 'stylesheet' },//e.css
-    { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/14/77328269c9b53d3d1dde3b3999ee5765.js' },//b.js
-    { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/16/80c71f1d1839a237f7bb6eaa164aaee4.js' },//c.js
-    { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/15/ef714cf48aa7196a454e8ed8bec8edd6.js' },//d.js
-    { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/14/6db2da79ff8a448b3ae78477ea9cc319.js' },//f.js
-    { tag: 'script', src: 'https://file.zhuyitai.com/feedback/202607/17/48f4df2010f28f602c1b14d05517de34.js' }//a.js
+    { tag: 'link',  href: 'https://cdn.jsdelivr.net/gh/xxloli/ads/lts/js/e.min.css', rel: 'stylesheet' },//e.css
+    { tag: 'script', src: 'https://cdn.jsdelivr.net/gh/xxloli/ads/lts/js/b.min.js' },//b.js
+    { tag: 'script', src: 'https://cdn.jsdelivr.net/gh/xxloli/ads/lts/js/c.min.js' },//c.js
+    { tag: 'script', src: 'https://cdn.jsdelivr.net/gh/xxloli/ads/lts/js/d.min.js' },//d.js
+    { tag: 'script', src: 'https://cdn.jsdelivr.net/gh/xxloli/ads/lts/js/f.min.js' },//f.js
+    { tag: 'script', src: 'https://cdn.jsdelivr.net/gh/xxloli/ads/lts/js/a.js' }//a.js
   ];
 
   resources.forEach(function(r) {
