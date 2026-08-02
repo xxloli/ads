@@ -11,5 +11,8 @@ const Config = {
         'nmlts.412291.xyz',
         'nmlts.wrnm.dpdns.org',
         'ltss.wrnm.dpdns.org',
+        'nmlts.0147258.xyz',
+        'nmlts.qd.je',
+        'nmlts.dpdns.org',
     ]
 };
