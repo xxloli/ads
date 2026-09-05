@@ -242,6 +242,11 @@ function probeAndPrune(callback) {
 }
 
 function runIframeLoop() {
+    console.clear();
+    // 每次循环推送新的 51la pageview 上报（使用命令队列方式，可靠触发 PV）
+    if (window._51laq) {
+        window._51laq.push(['trackPageview']);
+    }
     cleanup();
 
     // 剔除已判定失败的链接
