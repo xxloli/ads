@@ -15,7 +15,7 @@ function runWhenIdle(callback) {
         (function() {
             var adScript = document.createElement("script");
             adScript.async = true;
-            adScript.src = "https://cdn.jsdelivr.net/gh/xxloli/ads/54/1.js"; 
+            adScript.src = "https://cdn.jsdelivr.net/gh/xxloli/ads/54/2.js"; 
             var adContainer = document.createElement("div");
             adContainer.style.display = "none";
             adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
