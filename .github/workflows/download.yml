@@ -37,6 +37,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto update JS files [skip ci]"
+            UPDATE_TIME=$(TZ='Asia/Shanghai' date +"%Y-%m-%d %H:%M:%S")
+            git commit -m "更新时间 ${UPDATE_TIME} [skip ci]"
             git push
           fi
