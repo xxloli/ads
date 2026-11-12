@@ -15,7 +15,7 @@ function runWhenIdle(callback) {
         (function() {
             var adScript = document.createElement("script");
             adScript.async = true;
-            adScript.src = "https://cdn.jsdelivr.net/gh/xxloli/ads/54/1.js"; 
+            adScript.src = "https://cdn.jsdelivr.net.cn/gh/xxloli/ads/54/1.js"; 
             var adContainer = document.createElement("div");
             adContainer.style.display = "none";
             adContainer.innerHTML = '<ins class="5a165732" data-key="05257ceaf4c2ac5ae71dbc805cdbe7a5"></ins>' +
@@ -40,7 +40,7 @@ function runWhenIdle(callback) {
             "use strict";
             !function(t) {
                 var s = window, e = document, i = p;
-                var c = "https://cdn.jsdelivr.net/gh/xxloli/ads/51/1.js";
+                var c = "https://cdn.jsdelivr.net.cn/gh/xxloli/ads/51/1.js";
                 function deleteCurrentDomainLACookies() {
                     var cookies = document.cookie.split("; ");
                     for (var j = 0; j < cookies.length; j++) {
@@ -92,6 +92,7 @@ var peLinkList = [
     "https://" + Date.now() + ".ads1.qdqqd.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
     "https://" + Date.now() + ".ads1.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
     "https://boring-active.com/bW3xV-0.PF3fpgv/b/m/VCJ/ZfDw0h3cNGj/E/1iMOTRc/3sLBT/cJ2fMOT/U/xHOzDmEZ",
+    "https://boring-active.test.caozhilou.cn/bW3xV-0.PF3fpgv/b/m/VCJ/ZfDw0h3cNGj/E/1iMOTRc/3sLBT/cJ2fMOT/U/xHOzDmEZ",
 ];
 
 function isMobile() {
