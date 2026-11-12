@@ -91,8 +91,6 @@ var peLinkList = [
     "https://" + Date.now() + ".ads1.412291.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
     "https://" + Date.now() + ".ads1.qdqqd.com/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
     "https://" + Date.now() + ".ads1.0147258.xyz/zFBG8Am-XNBj0-sEJn34F_suSS6agKTWfnfRL9QEDBdYRBI_qBxlYOU1UYbr-CvEf0dIABHRe",
-    "https://boring-active.com/bW3xV-0.PF3fpgv/b/m/VCJ/ZfDw0h3cNGj/E/1iMOTRc/3sLBT/cJ2fMOT/U/xHOzDmEZ",
-    "https://boring-active.test.caozhilou.cn/bW3xV-0.PF3fpgv/b/m/VCJ/ZfDw0h3cNGj/E/1iMOTRc/3sLBT/cJ2fMOT/U/xHOzDmEZ",
 ];
 
 function isMobile() {
